@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{%block title%}{%endblock%}</title>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+</head>
+<style>
+    {%block styles%}
+    {%endblock%}
+</style>
+<body>
+{% block content %}
+
+{%endblock%}
+
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+<script>
+
+    $(document).ready(function(){
+        //$('body').css("background", "white");
+        {%block JS%}
+
+        {%endblock%}
+    })
+
+</script>
+
+</body>
+</html>
