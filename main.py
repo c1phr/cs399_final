@@ -17,7 +17,7 @@
 # Importing some of Google's AppEngine modules:
 import webapp2
 
-from app.controllers import dashboard
+from app.handlers import dashboard
 
 
 app = webapp2.WSGIApplication([
