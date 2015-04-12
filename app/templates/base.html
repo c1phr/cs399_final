@@ -22,6 +22,10 @@
     .navbar-item:hover{
         background: none!important;
     }
+    .nav-button{
+        background: transparent;
+        border: none!important;
+    }   
     {%block styles%}
     {%endblock%}
 </style>
@@ -52,8 +56,25 @@
    <div class="sidebar-left">
    <h6 style="color:#777; margin-left: 15px;">MENU</h6>
        <ul class="nav nav-pills nav-stacked">
-           <li role="presentation"><a class="navbar-item" href="/" style="color:white;"> <span class="glyphicon glyphicon-list" style="margin-right: 10px;"></span> View Tasks</a></li>
-           <li role="presentation"><a class="navbar-item" href="/project" style="color:white;"> <span class="glyphicon glyphicon-picture" style="margin-right: 10px;"></span>Project Overview</a></li>
+           
+           <!-- expanding/collapsing button -->
+           <div class="container">
+                <li role="presentation">
+                    <button class="nav-button" data-toggle="collapse" data-target="#sublist">
+                        <a class="navbar-item" href="#" style="color:white;">
+                            <span class="glyphicon glyphicon-folder-open" style="margin-right:10px;"></span>View Tasks</a>
+                    </button>
+               </li>
+                
+               <!-- sublist items -->
+               <div id="sublist" class="collapse">
+                <ul class="nav nav-pills nav-stacked">
+                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;"> <span class="glyphicon glyphicon-folder-open" style="margin-right:10px;"></span> Yipee more stuff</a></li>
+               </ul>
+               </div>
+           </div>   
+           
+               <li role="presentation"><a class="navbar-item" href="/project" style="color:white;"> <span class="glyphicon glyphicon-picture" style="margin-right: 10px;"></span>Project Overview</a></li>
            <li role="presentation"><a class="navbar-item" href="#" data-toggle="modal" data-target="#submitBug" style="color:white;"> <span class="glyphicon glyphicon-user" style="margin-right: 10px;"></span> Team Members</a></li>
        </ul>
   <h6 style="color:#777; margin-left: 15px;">TOOLS</h6>
