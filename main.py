@@ -21,6 +21,7 @@ from app.handlers import dashboard
 
 
 app = webapp2.WSGIApplication([
-    ('/', dashboard.MainHandler),
-    ('/project', dashboard.Project)
+    #('/login', ),
+    ('/project', dashboard.Project),
+    ('/', dashboard.MainHandler)
 ], debug=True)
