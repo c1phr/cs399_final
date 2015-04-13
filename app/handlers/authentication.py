@@ -1,10 +1,17 @@
 from app.handlers.BaseHandler import BaseHandler
-import cgi
+import cgi, urllib, urllib2
 from github import Github, GithubException
+from lib.secrets import secrets
 
 
 class Login(BaseHandler):
     def get(self):
+        url = 'https://github.com/login/oauth/authorize?client_id=' + secrets.GitHub_ClientID()
+        data = urllib.urlencode(values)
+        req = urllib2.Request(url)
+        response = urllib2.urlopen(req)
+        the_page = response.read()
+        self.response.write(the_page)
         # Show the user the login form
         pass
     def post(self):
