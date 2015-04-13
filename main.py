@@ -17,13 +17,9 @@
 # Importing some of Google's AppEngine modules:
 import webapp2
 
-from app.handlers import dashboard
-config = {}
-config['webapp2_extras.sessions'] = {
-    'secret_key': 'my-super-secret-key',
-}
+from app.handlers import dashboard, authentication
 app = webapp2.WSGIApplication([
-    #('/login', authentication.Login),
+    ('/login', authentication.Login),
     ('/project', dashboard.Project),
     ('/', dashboard.MainHandler)
-],config = config, debug=True)
+], debug=True)
