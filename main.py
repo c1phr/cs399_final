@@ -15,12 +15,19 @@
 # limitations under the License.
 #
 # Importing some of Google's AppEngine modules:
-import os, sys
-import webapp2
+import os, sys, webapp2, random
+
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib"))
-from app.handlers import dashboard, authentication
+
+from app.handlers import dashboard, authentication # Do not move this line above the previous sys.path.append()
+
+config = {'webapp2_extras.sessions': {
+    'secret_key': random.getrandbits(128),
+}}
+
 app = webapp2.WSGIApplication([
     ('/login', authentication.Login),
     ('/project', dashboard.Project),
     ('/', dashboard.MainHandler)
-], debug=True)
+], debug=True, config=config)

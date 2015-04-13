@@ -1,7 +1,7 @@
 from app.handlers.BaseHandler import BaseHandler
 import cgi, urllib, urllib2
 from github import Github, GithubException
-from lib.secrets import secrets
+from secrets import secrets
 
 
 class Login(BaseHandler):
