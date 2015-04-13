@@ -6,9 +6,12 @@ from secrets import secrets
 
 class Login(BaseHandler):
     def get(self):
-        url = 'https://github.com/login/oauth/authorize?client_id=' + secrets.GitHub_ClientID()
-        return self.redirect(url)
-        
+        if not self.request.get('code'):
+            url = 'https://github.com/login/oauth/authorize?client_id=' + secrets.GitHub_ClientID()
+            return self.redirect(url)
+        code = cgi.escape(self.request.get('code'))
+        # Do something with this code and redirect the user back home or something
+
     def post(self):
         if not self.session.get('username'):
             self.session['username'] = cgi.escape(self.request.get('username'))
