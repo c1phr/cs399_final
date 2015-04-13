@@ -54,74 +54,77 @@
 </nav>
 <aside id="sidebar">
    <div class="sidebar-left">
-   <h6 style="color:#777; margin-left: 15px;">MENU</h6>
+   <h6 style="color:#777; margin-left: 0.5em;">MENU</h6>
        <ul class="nav nav-pills nav-stacked">
-           
-            <li role="presentation"><a class="navbar-item" href="/tasks" style="color:white;">
-                <span class="glyphicon glyphicon-folder-open" style="margin-right: 10px;"></span>View Tasks</a>
-           </li>
-           
-           
-           <!-- expanding/collapsing Project Overview -->
-           <div class="container">
-                <li role="presentation">
-                    <button class="nav-button" data-toggle="collapse" data-target="#overview">
-                        <a class="navbar-item" href="#" style="color:white;">
-                            <span class="glyphicon glyphicon-picture" style="margin-right:10px"></span>Project Overview</a>
-                    </button>
-               </li>
-                
-               <!-- sublist items -->
-               <div id="overview" class="collapse">
-                <ul class="nav nav-pills nav-stacked" style="margin-left:10px">
-                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;"> <span class="glyphicon glyphicon-folder-open" style="margin-right:10px;"></span>Requirements</a></li>
-               </ul>
-                <ul class="nav nav-pills nav-stacked" style="margin-left:10px">
-                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;"> <span class="glyphicon glyphicon-folder-open" style="margin-right:10px;"></span>Details</a></li>
-               </ul>
-               </div>
-           </div>     
-    
 
+            <li role="presentation">
+                <button class="nav-button" data-toggle="collapse" data-target="#overview">
+                    <a class="navbar-item" href="/tasks" style="color:white;margin-left:1em;">
+                        <span class="glyphicon glyphicon-folder-open" style="margin-right: 10px;"></span>View Tasks</a>
+                </button>
+           </li>
+
+
+           <!-- expanding/collapsing Project Overview -->
+            <li role="presentation">
+                <button class="nav-button" data-toggle="collapse" data-target="#overview">
+                    <a class="navbar-item" href="#" style="color:white;margin-left:1em;">
+                        <span class="glyphicon glyphicon-picture" style="margin-right:10px;"></span>Project Overview</a>
+                </button>
+           </li>
+
+           <!-- sublist items -->
+           <div id="overview" class="collapse">
+            <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
+               <li role="presentation"><a class="navbar-item" href="#" style="color:white;"> <span class="glyphicon glyphicon-folder-open" style="margin-right:10px;"></span>Requirements</a></li>
+           </ul>
+            <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
+               <li role="presentation"><a class="navbar-item" href="#" style="color:white;"> <span class="glyphicon glyphicon-folder-open" style="margin-right:10px;"></span>Details</a></li>
+           </ul>
+           </div>
+
+
+
+            <!-- expanding/collapsing Team -->
+            <li role="presentation">
+                <button class="nav-button" data-toggle="collapse" data-target="#team">
+                    <a class="navbar-item" href="#" style="color:white;margin-left:1em;">
+                        <span class="glyphicon glyphicon-user" style="margin-right:10px;"></span>Team Members</a>
+                </button>
+           </li>
+
+           <!-- sublist items -->
+           <div id="team" class="collapse">
+                <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
+                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
+                       <span class="glyphicon glyphicon-king" style="margin-right:10px;"></span>Ryn</a>
+                    </li>
+               </ul>
+                <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
+                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
+                       <span class="glyphicon glyphicon-thumbs-down" style="margin-right:10px;"></span>Dick</a>
+                    </li>
+               </ul>
+                <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
+                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
+                       <span class="glyphicon glyphicon-sunglasses" style="margin-right:10px;"></span>Chirs</a>
+                    </li>
+               </ul>
+                <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
+                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
+                       <span class="glyphicon glyphicon-baby-formula" style="margin-right:10px;"></span>Torrè</a>
+                    </li>
+               </ul>
+           </div>
            
-           <!-- expanding/collapsing Team -->
-           <div class="container">
-                <li role="presentation">
-                    <button class="nav-button" data-toggle="collapse" data-target="#team">
-                        <a class="navbar-item" href="#" style="color:white;">
-                            <span class="glyphicon glyphicon-user" style="margin-right:10px;"></span>Team Members</a>
-                    </button>
-               </li>
-                
-               <!-- sublist items -->
-               <div id="team" class="collapse">
-                    <ul class="nav nav-pills nav-stacked" style="margin-left:10px">
-                       <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
-                           <span class="glyphicon glyphicon-king" style="margin-right:10px;"></span>Ryn</a>
-                        </li>
-                   </ul>
-                    <ul class="nav nav-pills nav-stacked" style="margin-left:10px">
-                       <li role="presentation"><a class="navbar-item" href="#" style="color:white;"> 
-                           <span class="glyphicon glyphicon-thumbs-down" style="margin-right:10px;"></span>Dick</a>
-                        </li>
-                   </ul>
-                    <ul class="nav nav-pills nav-stacked" style="margin-left:10px">
-                       <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
-                           <span class="glyphicon glyphicon-sunglasses" style="margin-right:10px;"></span>Chirs</a>
-                        </li>
-                   </ul>
-                    <ul class="nav nav-pills nav-stacked" style="margin-left:10px">
-                       <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
-                           <span class="glyphicon glyphicon-baby-formula" style="margin-right:10px;"></span>Torrè</a>
-                        </li>
-                   </ul>
-               </div>
-           </div>   
-           
-  <h6 style="color:#777; margin-left: 15px;">TOOLS</h6>
+       <h6 style="color:#777;margin-left: 0.5em;">TOOLS</h6>
        <ul class="nav nav-pills nav-stacked">
-           
-           <li role="presentation"><a class="navbar-item" href="#" style="color:white;"> <span class="glyphicon glyphicon-folder-open" style="margin-right:10px;"></span> Reports</a></li>
+           <li role="presentation">
+               <button class="nav-button" data-toggle="collapse" data-target="#team">
+                   <a class="navbar-item" href="#" style="color:white;margin-left:1em;">
+                       <span class="glyphicon glyphicon-folder-open" style="margin-right:10px;"></span> Reports</a>
+               </button>
+           </li>
        </ul>
    </div>
 </aside>
