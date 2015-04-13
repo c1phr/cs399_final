@@ -7,13 +7,8 @@ from secrets import secrets
 class Login(BaseHandler):
     def get(self):
         url = 'https://github.com/login/oauth/authorize?client_id=' + secrets.GitHub_ClientID()
-        data = urllib.urlencode(values)
-        req = urllib2.Request(url)
-        response = urllib2.urlopen(req)
-        the_page = response.read()
-        self.response.write(the_page)
-        # Show the user the login form
-        pass
+        return self.redirect(url)
+        
     def post(self):
         if not self.session.get('username'):
             self.session['username'] = cgi.escape(self.request.get('username'))
