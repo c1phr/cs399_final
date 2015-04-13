@@ -18,10 +18,12 @@
 import webapp2
 
 from app.handlers import dashboard
-
-
+config = {}
+config['webapp2_extras.sessions'] = {
+    'secret_key': 'my-super-secret-key',
+}
 app = webapp2.WSGIApplication([
-    #('/login', ),
+    #('/login', authentication.Login),
     ('/project', dashboard.Project),
     ('/', dashboard.MainHandler)
-], debug=True)
+],config = config, debug=True)

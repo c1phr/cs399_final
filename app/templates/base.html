@@ -142,6 +142,9 @@
     $(document).ready(function(){
         //$('body').css("background", "white");
         $('#breadcrumbs').css({marginLeft: $('#sidebar').width() + 10});
+        $.get('/login').done(function(data){
+        console.log(data);
+        })
         $(window).resize(function(){
             $('#breadcrumbs').css({marginLeft: $('#sidebar').width() + 10});
 
