@@ -1,7 +1,8 @@
 from app.handlers.BaseHandler import BaseHandler
-import cgi, urllib, urllib2
+import cgi, urllib, json
 from github import Github, GithubException
-from secrets import secrets
+from google.appengine.api import urlfetch
+from lib.secrets import secrets
 
 
 class Login(BaseHandler):
@@ -10,27 +11,21 @@ class Login(BaseHandler):
             url = 'https://github.com/login/oauth/authorize?client_id=' + secrets.GitHub_ClientID()
             return self.redirect(url)
         code = cgi.escape(self.request.get('code'))
-        # Do something with this code and redirect the user back home or something
-
-    def post(self):
-        if not self.session.get('username'):
-            self.session['username'] = cgi.escape(self.request.get('username'))
-        if not self.session.get('password'):
-            self.session['password'] = cgi.escape(self.request.get('password'))
-        two_factor = cgi.escape(self.request.get('two_factor'))
-        gh = Github(self.session.get('username'), self.session.get('password')).get_user()
-        if not two_factor:
-            try:
-                auth = gh.create_authorization(scopes=['repo'])
-            except GithubException:
-                # Redirect to a new page to get the 2FA code, then post back here with that code
-                pass
-        else:
-            try:
-                auth = gh.create_authorization(scopes=['repo'], onetime_password=two_factor)
-            except GithubException:
-                # Figure out how we want to display this exception
-                pass
+        access_url = "https://github.com/login/oauth/access_token"
+        data_vals = {"client_id": secrets.GitHub_ClientID(),
+                     "client_secret": secrets.GitHub_ClientSecret(),
+                     "code": code}
+        data = urllib.urlencode(data_vals)
+        result = urlfetch.fetch(url = access_url,
+                                payload=data,
+                                method=urlfetch.POST,
+                                headers={"Accept": "application/json"},
+                                deadline=10)
+        auth_contents = json.loads(result.content)
+        self.session["access_token"] = auth_contents["access_token"]
+        self.session["access_token_type"] = auth_contents["token_type"]
+        self.session["access_token_scope"] = auth_contents["scope"]
+        self.redirect("/")
 
 
 

@@ -21,13 +21,19 @@ import os, sys, webapp2, random
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib"))
 
 from app.handlers import dashboard, authentication # Do not move this line above the previous sys.path.append()
-
-config = {'webapp2_extras.sessions': {
-    'secret_key': random.getrandbits(128),
-}}
+config = {}
+config['webapp2_extras.sessions'] = {
+    'secret_key': str(random.getrandbits(128)),
+}
 
 app = webapp2.WSGIApplication([
     ('/login', authentication.Login),
     ('/project', dashboard.Project),
     ('/', dashboard.MainHandler)
 ], debug=True, config=config)
+
+def main():
+    app.run()
+
+if __name__ == "__main__":
+    main()
