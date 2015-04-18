@@ -24,5 +24,14 @@ class Login(BaseHandler):
         self.session["access_token"] = auth_contents["access_token"]
         self.session["access_token_type"] = auth_contents["token_type"]
         self.session["access_token_scope"] = auth_contents["scope"]
-        self.redirect("/")
+
+        info_url = "https://api.github.com/user?access_token=" + auth_contents["access_token"]
+        username_result = urlfetch.fetch(url = info_url,
+                                method=urlfetch.GET,
+                                headers={"Accept": "application/json"},
+                                deadline=10)
+        user_contents = json.loads(username_result.content)
+        self.session["username"] = user_contents["login"]
+        self.session["gravatar"] = user_contents["avatar_url"]
+        self.redirect("/register")
 
