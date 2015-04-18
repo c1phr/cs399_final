@@ -3,10 +3,10 @@ import webapp2
 from google.appengine.ext import ndb
 
 class User(ndb.Model):
-    user_id = ndb.IntegerProperty(required=True)
+    user_id = ndb.StringProperty(required=True)
     first_name = ndb.StringProperty(required=True)
     last_name = ndb.StringProperty(required=True)
-    email = ndb.EmailProperty(required=True)
+    email = ndb.StringProperty(required=True)
     gravatar_url = ndb.StringProperty()
 
 class Requirements(ndb.Model):

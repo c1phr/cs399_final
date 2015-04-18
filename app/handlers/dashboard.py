@@ -5,7 +5,7 @@ import cgi, urllib, json
 from google.appengine.api import urlfetch
 from secrets import secrets
 from app.handlers.BaseHandler import BaseHandler
-#from app.models.models import User
+from app.models.models import User
 from jinja2 import Environment, PackageLoader
 env = Environment(loader=PackageLoader('app', 'templates'))
 
@@ -25,6 +25,8 @@ class Register(BaseHandler):
         first = cgi.escape(self.request.get('first'))
         last = cgi.escape(self.request.get('last'))
         email = cgi.escape(self.request.get('email'))
+        person = User(user_id=%%%, first_name=first, last_name=last, email=email)
+        person.put()
 
 class Project(BaseHandler):
     def get(self):
