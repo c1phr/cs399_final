@@ -4,7 +4,24 @@
 
 {%endblock%}
 {%block content%}
-
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Project Name</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+        {%for projects in project%}
+            <tr>
+                <td style="font-weight:bold;">{{projects.name}}</td>
+                <td><button class="btn-danger btn">Delete</button></td>
+            </tr>
+        {%endfor %}
+        </tbody>
+    </table>
+</div>
 {%endblock%}
 {%block JS%}
 {%endblock%}

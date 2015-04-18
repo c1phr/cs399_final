@@ -1,6 +1,5 @@
 from app.handlers.BaseHandler import BaseHandler
 import cgi, urllib, json
-from github import Github, GithubException
 from google.appengine.api import urlfetch
 from secrets import secrets
 
