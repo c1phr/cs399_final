@@ -5,6 +5,7 @@ import cgi, urllib, json
 from google.appengine.api import urlfetch
 from secrets import secrets
 from app.handlers.BaseHandler import BaseHandler
+from app.models.models import User
 from jinja2 import Environment, PackageLoader
 env = Environment(loader=PackageLoader('app', 'templates'))
 
@@ -12,7 +13,7 @@ env = Environment(loader=PackageLoader('app', 'templates'))
 class MainHandler(BaseHandler):
     def get(self):
         template = env.get_template('index.html')
-        self.response.write(template.render(name = "Dashboard", token = self.session.get("access_token")))
+        self.response.write(template.render(name = "Dashboard", user = User.query(), token = self.session.get("access_token")))
 
 class Project(BaseHandler):
     def get(self):
