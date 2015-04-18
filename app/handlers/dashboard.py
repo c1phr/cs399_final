@@ -52,17 +52,5 @@ class ProjectDashboard(BaseHandler):
         project_name = cgi.escape(self.request.get('name'))
         project_description = cgi.escape(self.request.get('desc'))
         owner = self.session.get("user")
-        #I took out the below GET request because we technically get all of this data once we reach the Project page, no use in querying for it again.
-
-
-        # project_details_url = "https://api.github.com/repos/" + owner.user_id + "/" + project_name + "?access_token=" + self.session.get("access_token")
-        # project_details_result = urlfetch.fetch(url = project_details_url,
-        #                                  method = urlfetch.GET,
-        #                                  headers = {"Accept": "application/json"},
-        #                                  deadline = 10)
-        # project_details = json.loads(project_details_result)
-
-        #Open up your web console, click any of the projects on the 'All Projects' page, and wait for the 500 internal error.
-        #Click the error and then you will see that it is an issue with our keys.
         project = Project(project_id = int(project_id), project_title = project_name, project_desc = project_description, project_owner = owner)
         project.put()
