@@ -5,28 +5,29 @@
 {%endblock%}
 {%block content%}
 <div class="row">
-    <div class="col-xs-6 col-xs-offset-3">
-        <div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Project Name</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
-        {%for projects in project%}
-            <tr>
-                <td style="font-weight:bold;">{{projects.name}}</td>
-                <td><button class="btn-danger btn">Delete</button></td>
-            </tr>
-        {%endfor %}
-        </tbody>
-    </table>
+    <div class="col-xs-6 col-xs-offset-3 text-center">
+        <h3>All Projects</h3>
+        <hr/>
+        <h5>These are all of the projects you are currently contributing to.</h5>
+    </div>
 </div>
+
+<div class="row" style="margin-top:10px;">
+    <div class="col-xs-8 col-xs-offset-2">
+        {%for projects in project%}
+            <div class="col-xs-4">
+                <a class="btn-primary btn project_submit" data-project-desc="{{projects.description}}"  data-project-name="{{projects.name}}"  data-project-id="{{projects.id}}" style="margin-top: 10px; width: 100%;" href="#">
+                    {{projects.name}}
+                </a>
+            </div>
+        {%endfor %}
     </div>
 </div>
 
 {%endblock%}
 {%block JS%}
+    $('.project_submit').click(function(){
+        $.post('/project', {id: parseInt($(this).attr('data-project-id')), name: $(this).attr('data-project-name') , desc: $(this).attr('data-project-desc')}).success(function(){console.log("success!")}).error(function(data){console.log(data);})
+    })
+
 {%endblock%}
