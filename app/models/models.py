@@ -10,9 +10,9 @@ class User(ndb.Model):
 
 class Requirements(ndb.Model):
     req_id = ndb.IntegerProperty(required=True)
-    parent_id = ndb.IntegerProperty()
+    parent_id = ndb.KeyProperty(kind="Requirements")
     req_desc = ndb.TextProperty()
-    project_id = ndb.IntegerProperty()
+    project_id = ndb.KeyProperty(kind="Project")
 
 class Project(ndb.Model):
     project_id = ndb.IntegerProperty(required=True)
@@ -22,6 +22,6 @@ class Project(ndb.Model):
 class Task(ndb.Model):
     task_id = ndb.IntegerProperty(required=True)
     task_title = ndb.StringProperty()
-    req_id = ndb.IntegerProperty()
-    assignee_id = ndb.IntegerProperty()
+    req_id = ndb.KeyProperty(kind="Requirements")
+    assignee_id = ndb.KeyProperty(kind="User")
     field = ndb.StringProperty()
