@@ -32,6 +32,7 @@ config['webapp2_extras.sessions'] = {
 app = webapp2.WSGIApplication([
     ('/login', authentication.Login),
     ('/project', dashboard.Project),
+    ('/register', dashboard.Register),
     ('/', dashboard.MainHandler)
 ], debug=True, config=config)
 

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{%block title%}Git Registered{%endblock%}
+{%block styles%}
+    input{
+        margin-top:10px;
+    }
+{%endblock%}
+{%block content%}
+<div class="row">
+    <div class="col-xs-4 col-xs-offset-4">
+        <h3>User Information</h3>
+
+        <form action="/register" method="POST">
+            <input class="form-control" type="text" name="first" required id="first" placeholder="First Name"/>
+            <input class="form-control" type="text" name="last" required id="last" placeholder="Last Name"/>
+            <input class="form-control" type="email" name="email" required id="email" placeholder="Your Email"/>
+            <button class="btn-primary btn" type="submit" style="margin-top:10px;">Finish Registration</button>
+        </form>
+    </div>
+</div>
+
+{%endblock%}
+{%block JS%}
+    $(
+{%endblock%}
