@@ -19,6 +19,7 @@ class Project(ndb.Model):
     project_id = ndb.IntegerProperty(required=True)
     project_title = ndb.StringProperty()
     project_desc = ndb.TextProperty()
+    project_owner = ndb.KeyProperty(kind="User")
 
 class Task(ndb.Model):
     task_id = ndb.IntegerProperty(required=True)

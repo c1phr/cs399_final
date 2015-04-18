@@ -35,9 +35,10 @@ class Login(BaseHandler):
         user_contents = json.loads(username_result.content)
 
         user = User.query(User.user_id == user_contents["login"]).get()
-        if user == None:
+        if user is None:
             self.session["username"] = user_contents["login"]
             self.session["gravatar"] = user_contents["avatar_url"]
             self.redirect("/register")
         else:
+            self.session["user"] = user
             self.redirect("/")
