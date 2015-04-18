@@ -1,5 +1,7 @@
 from app.handlers.BaseHandler import BaseHandler
 import cgi, urllib, json
+from app.models.models import User
+
 from google.appengine.api import urlfetch
 from secrets import secrets
 
@@ -31,7 +33,11 @@ class Login(BaseHandler):
                                 headers={"Accept": "application/json"},
                                 deadline=10)
         user_contents = json.loads(username_result.content)
-        self.session["username"] = user_contents["login"]
-        self.session["gravatar"] = user_contents["avatar_url"]
-        self.redirect("/register")
 
+        user = User.query(User.user_id == user_contents["login"])
+        if user == "":
+            self.session["username"] = user_contents["login"]
+            self.session["gravatar"] = user_contents["avatar_url"]
+            self.redirect("/register")
+        else:
+            self.redirect("/")

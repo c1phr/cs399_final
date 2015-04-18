@@ -16,6 +16,7 @@ class MainHandler(BaseHandler):
         #self.response.write(template.render(name = "Dashboard", user = User.query(), token = self.session.get("access_token")))
         self.response.write(template.render(name = "Dashboard", token = self.session.get("access_token"), user = self.session.get("username") ))
 
+
 class Register(BaseHandler):
     def get(self):
         template = env.get_template("registration.html")
@@ -28,6 +29,8 @@ class Register(BaseHandler):
         person = User(user_id= self.session.get("username"), first_name=first, last_name= last, email= email, gravatar_url = self.session.get("gravatar") )
         person.put()
         self.redirect("/")
+
+
 class Project(BaseHandler):
     def get(self):
         access_url = "https://api.github.com/user/repos?access_token=" + self.session.get("access_token")
