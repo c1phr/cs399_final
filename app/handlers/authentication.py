@@ -2,13 +2,13 @@ from app.handlers.BaseHandler import BaseHandler
 import cgi, urllib, json
 from github import Github, GithubException
 from google.appengine.api import urlfetch
-from lib.secrets import secrets
+from secrets import secrets
 
 
 class Login(BaseHandler):
     def get(self):
         if not self.request.get('code'):
-            url = 'https://github.com/login/oauth/authorize?client_id=' + secrets.GitHub_ClientID()
+            url = 'https://github.com/login/oauth/authorize?client_id=' + secrets.GitHub_ClientID() + "&scope=user,repo,notifications,gist,read:repo_hook, write:repo_hook"
             return self.redirect(url)
         code = cgi.escape(self.request.get('code'))
         access_url = "https://github.com/login/oauth/access_token"
@@ -27,10 +27,3 @@ class Login(BaseHandler):
         self.session["access_token_scope"] = auth_contents["scope"]
         self.redirect("/")
 
-
-
-
-class TwoFactor(BaseHandler):
-    def get(self):
-        # Show the user the two factor form
-        pass
