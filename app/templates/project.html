@@ -23,11 +23,23 @@
         {%endfor %}
     </div>
 </div>
+<div class="row text-center" style="margin-top:30px;">
+    <div class="alert alert-success project-success" style="display:none;" role="alert">Project Successfully Added!</div>
 
+</div>
 {%endblock%}
 {%block JS%}
-    $('.project_submit').click(function(){
-        $.post('/project', {id: parseInt($(this).attr('data-project-id')), name: $(this).attr('data-project-name') , desc: $(this).attr('data-project-desc')}).success(function(){console.log("success!")}).error(function(data){console.log(data);})
+    $('.project_submit').click(function () {
+        var $this = $(this);
+        $.post('/project', {
+            id: parseInt($(this).attr('data-project-id')),
+            name: $(this).attr('data-project-name'),
+            desc: $(this).attr('data-project-desc')
+        })
+            .success(function () {
+            $this.attr('disabled', true);
+            console.log("disabled");
+            $('.project-success').fadeIn(1500).fadeOut(4000);
+        })
     })
-
 {%endblock%}
