@@ -14,7 +14,7 @@ class MainHandler(BaseHandler):
     def get(self):
         template = env.get_template('index.html')
         #self.response.write(template.render(name = "Dashboard", user = User.query(), token = self.session.get("access_token")))
-        self.response.write(template.render(name = "Dashboard", token = self.session.get("access_token"), user = self.session.get("username") ))
+        self.response.write(template.render(name = "Dashboard", token = self.session.get("access_token")))
 
 
 class Register(BaseHandler):

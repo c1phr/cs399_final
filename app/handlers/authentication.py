@@ -34,7 +34,7 @@ class Login(BaseHandler):
                                 deadline=10)
         user_contents = json.loads(username_result.content)
 
-        user = User.query(User.user_id == user_contents["login"])
+        user = User.query(User.user_id == user_contents["login"]).get()
         if user == "":
             self.session["username"] = user_contents["login"]
             self.session["gravatar"] = user_contents["avatar_url"]

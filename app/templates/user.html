@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{%block title%}User Information{%endblock%}
+{%block styles%}
+{%endblock%}
+{%block content%}
+<div class="row" style="margin-top:20px;">
+    <div class="col-xs-6 col-xs-offset-3 text-center">
+        <img src="{{user.gravatar_url}}" class="img-responsive center-block" alt=""/>
+        <h3>{{user.user_id}}</h3>
+        
+    </div>
+</div>
+
+{%endblock%}
+{%block JS%}
+{%endblock%}
