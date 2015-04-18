@@ -6,6 +6,7 @@ class User(ndb.Model):
     user_id = ndb.IntegerProperty(required=True)
     first_name = ndb.StringProperty(required=True)
     last_name = ndb.StringProperty(required=True)
+    email = ndb.EmailProperty(required=True)
     gravatar_url = ndb.StringProperty()
 
 class Requirements(ndb.Model):
