@@ -27,3 +27,7 @@ class Task(ndb.Model):
     req_id = ndb.KeyProperty(kind="Requirements")
     assignee_id = ndb.KeyProperty(kind="User")
     field = ndb.StringProperty()
+
+class Project_User(ndb.Model):
+    project_id = ndb.KeyProperty(kind="Project")
+    user_id = ndb.KeyProperty(kind="User")
