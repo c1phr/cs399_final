@@ -40,5 +40,5 @@ class Login(BaseHandler):
             self.session["gravatar"] = user_contents["avatar_url"]
             self.redirect("/register")
         else:
-            self.session["user"] = user
+            self.session["user"] = user.key
             self.redirect("/")

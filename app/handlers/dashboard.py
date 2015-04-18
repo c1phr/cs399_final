@@ -28,7 +28,7 @@ class Register(BaseHandler):
         email = cgi.escape(self.request.get('email'))
         person = User(user_id= self.session.get("username"), first_name=first, last_name= last, email= email, gravatar_url = self.session.get("gravatar") )
         person.put()
-        self.session["user"] = person
+        self.session["user"] = person.key
         self.redirect("/")
 
 
