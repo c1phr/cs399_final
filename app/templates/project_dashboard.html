@@ -32,16 +32,44 @@ td{
             {%endfor%}
         </div>
         <h6 style="font-weight:bold;">{{total}} total lines of code</h6>
-        {{team}}
     </div>
 </div>
 
 <div class="row">
-
+    <hr/>
+    <h3 class="text-center">Current Team</h3>
+    <hr/>
     <div class="col-xs-6 col-xs-offset-3">
-        <input class="form-control" type="text" placeholder="Add Team Member" />
-    </div>
+        <div class="input-group">
+            <input class="form-control" id="member-name" data-project-id = "{{project_data.project_id}}" type="text" placeholder="Add Team Member"  />
+            <span class="input-group-btn">
+                <button class="btn-primary btn addUser">Add User</button>
+            </span>
+        </div>
 
+        <div class="table-responsive text-center">
+            <table class="table table-hover text-center">
+                <thead class="">
+                    <tr>
+                        <td>Username</td>
+                        <td>Email</td>
+                        <td>Options</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for member in team%}
+
+                        <tr data-project-id = "{{project_data.project_id}}" data-user="{{member.user_id}}">
+                            <td>{{member.user_id}}</td>
+                            <td>{{member.email}}</td>
+                            <td><button class="btn-danger btn btn-sm removeUser">Remove From Project</button></td>
+                        </tr>
+
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 
@@ -92,4 +120,12 @@ td{
 {%endblock%}
 {%block JS%}
  $('[data-toggle="tooltip"]').tooltip()
+
+$('.addUser').click(function(){
+    $.post("/ManageTeam",{project_id: $('#member-name').attr('data-project-id'), username: $('#member-name').val(), method: "put"});
+})
+$('.removeUser').click(function(){
+    $.post("/ManageTeam",{project_id: $(this).closest('tr').attr('data-project-id'), username: $(this).closest('tr').attr('data-user'), method: "delete"}).done(function(msg){console.log(msg)});
+})
+
 {%endblock%}
