@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {%block title%}{{project_data.project_name}}{%endblock%}
 {%block styles%}
+td{
+    padding: 10px;
+}
 {%endblock%}
 {%block content%}
 <div class="row">
@@ -12,6 +15,9 @@
         <a type="button" class="btn btn-info btn-sm"  style="border-radius:20px;" href="https://github.com/{{user.user_id}}/{{project_data.project_title}}/issues/">
             {{open_issue}} Open Issues
         </a>
+         <button type="button" class="btn btn-success btn-sm"  style="border-radius:20px;" onclick="$('.Commits').is(':hidden') ? $('.Commits').show() :$('.Commits').hide() ">
+            Recent Commits
+        </button>
         <hr/>
         <h4>Language Statistics</h4>
         <div class="progress" style="margin-bottom:0;">
@@ -28,12 +34,12 @@
         <h6 style="font-weight:bold;">{{total}} total lines of code</h6>
     </div>
 </div>
-<div class="row">
-    <div class="col-xs-6 col-xs-offset-3">
+<div class="row Commits" style="display:none;">
+    <div class="col-xs-8 col-xs-offset-2">
         <h4 class="text-center">Recent Commits</h4>
-        <div class="table-responsive text-center">
+        <div class="table-responsive ">
             <table class="table-striped">
-                <thead style="font-weight:bold;">
+                <thead style="font-weight:bold;" class="text-center">
                     <tr>
                         <td>SHA</td>
                         <td>User</td>
