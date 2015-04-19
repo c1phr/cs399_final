@@ -77,10 +77,15 @@ class ManageTeam(BaseHandler):
     Post request takes in the project_id of the project that team members are being added for and a complete list of
     new team members. All old team members (except project owner) are deleted and re-added to the datastore.
     """
-    def post(self, project_id, username):
+    def delete(self, project_id, username):
+        old_user = User.query(User.user_id == username).get()
+        project = Project.query(Project.project_id == project_id).get()
+        old_member = Project_User.query(Project_User.project_id == project.key and Project_User.user_id == old_user.key).get()
+        old_member.key.delete()
+    def put(self, project_id, username):
         new_user = User.query(User.user_id == username).get()
         project = Project.query(Project.project_id == project_id).get()
-        new_member = Project_User(project_id=project.key(), user_id=new_user.key())
+        new_member = Project_User(project_id=project.key, user_id=new_user.key)
         new_member.put()
 
 
