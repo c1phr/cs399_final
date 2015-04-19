@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{%block title%}Testing Title{%endblock%}
+{%block styles%}
+
+{%endblock%}
+{%block content%}
+<div class="row">
+    <h3 class="text-center">{{project}} Issues</h3>
+    <hr/>
+    <div class="col-xs-8 col-xs-offset-2">
+        <div class="table-responsive">
+            <table class="table-striped table">
+                <thead>
+                    <tr>
+                        <td>
+                            User
+                        </td>
+                        <td>
+                            Title
+                        </td>
+                        <td>
+                            Description
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for issue in open_issues%}
+                        <tr>
+                            <td>
+                                {{issue.user.login}}
+                            </td>
+                            <td>
+                                {{issue.title}}
+                            </td>
+                            <td>
+                                {{issue.body}}
+                            </td>
+                            <td>
+                                <button class="btn-info btn btn-sm">Edit</button>
+                            </td>
+                            <td>
+                                <button class="btn-danger btn btn-sm">Close</button>
+                            </td>
+                        </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock%}
+{%block JS%}
+{%endblock%}
