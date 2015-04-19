@@ -35,8 +35,5 @@ class Loaded(BaseHandler):
         list_of_projects = []
         for project in loaded_projects_user:
             Project_stuffs = Project.query(Project.key == project.project_id).get()
-            #get_record = ndb.Key(Project, project.project_id).get()
-            # project_data = {"project_title":Project_stuffs.project_title, "project_id":Project_stuffs.project_id,
-            #                 "project_desc":Project_stuffs.project_desc, "project_owner":Project_stuffs.project_owner}
             list_of_projects.append(Project_stuffs)
         self.response.write(template.render(name = "Project Overview", project = list_of_projects, user = User.query(User.key == self.session.get("user")).get()))
