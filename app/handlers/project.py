@@ -5,7 +5,7 @@ from google.appengine.api import urlfetch
 from app.handlers.BaseHandler import BaseHandler
 from app.models.models import User, Project, Project_User
 from jinja2 import Environment, PackageLoader
-env = Environment(loader=PackageLoader('app', 'templates'))
+env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.ext.loopcontrols'])
 
 class ProjectDashboard(BaseHandler):
     def get(self, id):
@@ -34,9 +34,9 @@ class Loaded(BaseHandler):
             return
         list_of_projects = []
         for project in loaded_projects_user:
-            Project_stuffs = Project.query(Project.project_id == project.key).fetch()
-            get_record = ndb.Key(Project, project.project_id).get()
+            Project_stuffs = Project.query(Project.key == project.project_id).get()
+            #get_record = ndb.Key(Project, project.project_id).get()
             # project_data = {"project_title":Project_stuffs.project_title, "project_id":Project_stuffs.project_id,
             #                 "project_desc":Project_stuffs.project_desc, "project_owner":Project_stuffs.project_owner}
-            list_of_projects.append(get_record)
-        self.response.write(template.render(name = "Project Overview", project = json.dumps(list_of_projects)))
+            list_of_projects.append(Project_stuffs)
+        self.response.write(template.render(name = "Project Overview", project = list_of_projects, user = User.query(User.key == self.session.get("user")).get()))

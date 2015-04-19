@@ -8,7 +8,7 @@
         {%for projects in project%}
             <div class="col-xs-4">
                 <a class="btn-primary btn project_submit" data-project-desc="{{projects.description}}"  data-project-name="{{projects.name}}"  data-project-id="{{projects.id}}" style="margin-top: 10px; width: 100%;" href="#">
-                    {{projects.name}}
+                    {{projects.project_title}}
                 </a>
             </div>
         {%endfor %}
