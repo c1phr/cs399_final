@@ -7,6 +7,7 @@ from app.models.models import User, Project, Project_User
 from jinja2 import Environment, PackageLoader
 env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.ext.loopcontrols'])
 
+
 class ProjectDashboard(BaseHandler):
     def get(self, id):
         project_data = Project.query(Project.project_id == int(id)).get()
@@ -21,6 +22,7 @@ class ProjectDashboard(BaseHandler):
            # self.response.write(template.render(name="Invalid Project", project_data="{}", user = User.query(User.key == self.session.get("user")).get()))
         #else:
         self.response.write(template.render(name="Projects", project_data= project_data, user = User.query(User.key == self.session.get("user")).get(), commits = commit_contents))
+
 
 class Loaded(BaseHandler):
     def get(self):

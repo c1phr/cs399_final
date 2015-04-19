@@ -5,16 +5,40 @@
 {%block content%}
 <div class="row">
     <div class="col-xs-4 col-xs-offset-4 text-center">
-        <!--{{project_data}}-->
         <h2>{{project_data.project_title}}</h2>
+        <hr/>
 
-        {%for committed in commits%}
-            {{committed.author.login}}
-            {% if loop.index == 5%}
-                {%break%}
-            {%endif%}
-            {{loop.index}}
-        {%endfor%}
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <h4 class="text-center">Recent Commits</h4>
+        <div class="table-responsive text-center">
+            <table class="table-striped">
+                <thead style="font-weight:bold;">
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>User</td>
+                        <td>Description</td>
+                        <td>Date</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {%for committed in commits%}
+                    {% if loop.index > 5%}
+                        {%break%}
+                    {%endif%}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{committed.author.login}}</td>
+                        <td>{{committed.commit.message}}</td>
+                        <td>{{committed.commit.author.date}}</td>
+                    </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
 
