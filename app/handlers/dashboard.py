@@ -20,7 +20,7 @@ class MainHandler(BaseHandler):
 class Register(BaseHandler):
     def get(self):
         template = env.get_template("registration.html")
-        self.response.write(template.render(name = "Registration"))
+        self.response.write(template.render(name = "Registration", user = User.query(User.key == self.session.get("user")).get()))
 
     def post(self):
         first = cgi.escape(self.request.get('first'))
@@ -45,7 +45,7 @@ class ProjectDashboard(BaseHandler):
                                 deadline=10)
         project_contents = json.loads(result.content)
         template = env.get_template('project.html')
-        self.response.write(template.render(name = "Project Overview", project = project_contents))
+        self.response.write(template.render(name = "Project Overview", project = project_contents, user = User.query(User.key == self.session.get("user")).get()))
 
     def post(self):
         project_id = cgi.escape(self.request.get('id'))

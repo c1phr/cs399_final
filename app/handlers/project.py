@@ -17,7 +17,6 @@ class ProjectDashboard(BaseHandler):
                                 headers={"Accept": "application/json"},
                                 deadline=10)
         commit_contents = json.loads(result.content)
-
         #if project_data is None:
            # self.response.write(template.render(name="Invalid Project", project_data="{}", user = User.query(User.key == self.session.get("user")).get()))
         #else:
