@@ -18,6 +18,9 @@ class Loaded(BaseHandler):
             self.redirect("/login")
         loaded_projects_user = Project_User.query(Project_User.user_id == self.session.get("user")).get()
         list_of_projects = []
+        if loaded_projects_user is None:
+            self.response.write(template.render(name = "Project Overview", project = "{}"))
+            return
         for project in loaded_projects_user:
             list_of_projects.append(Project.query(Project.project_id == project.project_id)).get()
         self.response.write(template.render(name = "Project Overview", project = json.dumps(list_of_projects)))
