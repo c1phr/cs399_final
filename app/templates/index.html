@@ -6,6 +6,12 @@
 {%block content%}
 <div class="row">
     <div class="col-xs-offset-3 col-xs-4">
+        {% for issue in issues %}
+            <div>
+            {{ issue.title }} {{ issue.body }} Createdby:{{ issue.user.login }}
+            </div>
+            <br>
+        {% endfor %}
     </div>
 </div>
 {%endblock%}

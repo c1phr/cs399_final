@@ -12,13 +12,25 @@ env = Environment(loader=PackageLoader('app', 'templates'))
 
 class MainHandler(BaseHandler):
     def get(self):
-        template = env.get_template('index.html')
-        #self.response.write(template.render(name = "Dashboard", user = User.query(), token = self.session.get("access_token")))
         user = self.session.get("user")
         if user is None:
             self.redirect("/login")
-        else:
-            self.response.write(template.render(name = "Dashboard", token = self.session.get("access_token"), user = User.query(User.key == self.session.get("user")).get()))
+        access_url = "https://api.github.com/user/issues?access_token=" + self.session.get("access_token") + "&filter=all&direction=dec"
+        result_issues = urlfetch.fetch(url = access_url,
+                                method=urlfetch.GET,
+                                headers={"Accept": "application/json"},
+                                deadline=10)
+        # issues = json.loads(result_issues.content)
+        issues = json.loads(result_issues.content)
+        loop_counter = 0
+        issueList = []
+        for issue in issues:
+            if loop_counter == 5:
+                break
+            issueList.append(issue)
+            loop_counter +=1
+        template = env.get_template('index.html')
+        self.response.write(template.render(name = "Dashboard", issues=issueList, token = self.session.get("access_token"), user = User.query(User.key == self.session.get("user")).get()))
 
 
 class Splash(BaseHandler):
