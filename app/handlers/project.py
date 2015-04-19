@@ -46,6 +46,18 @@ class ProjectDashboard(BaseHandler):
                                 deadline=10)
         readme_contents = result.content
 
+
+        #grab the open current issues on Github
+        open_issues_url = "https://api.github.com/repos/" + self.session.get("username") + "/" + project_data.project_title + "/issues?access_token=" + self.session.get("access_token")+"&state=open"
+        result = urlfetch.fetch(url = open_issues_url,
+                                method=urlfetch.GET,
+                                headers={"Accept": "application/json"},
+                                deadline=10)
+        open_issues_content = json.loads(result.content)
+        open_issue = 0
+        for issue in open_issues_content:
+            open_issue += 1
+
         team = Project_User.query(Project_User.project_id == project_data.key).fetch()
         user = self.session.get("user")
         team_members = []
@@ -57,7 +69,7 @@ class ProjectDashboard(BaseHandler):
         self.response.write(template.render(name="Projects", project_data=project_data,
                                             user=User.query(User.key == self.session.get("user")).get(),
                                             commits=commit_contents, languages=language_contents, total=total,
-                                            readme=readme_contents, team=team_members))
+                                            readme=readme_contents, open_issue = open_issue, team=team_members))
 
 
 class ManageTeam(BaseHandler):

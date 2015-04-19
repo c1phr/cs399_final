@@ -31,7 +31,7 @@ class Register(BaseHandler):
         template = env.get_template("registration.html")
         user = self.session.get("user")
         if user is None:
-            self.response.write(template.render(name = "Registration"))
+            self.response.write(template.render(name = "Registration", user = ""))
         else:
             self.response.write(template.render(name = "Registration", user = User.query(User.key == self.session.get("user")).get()))
 
