@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{%block title%}{{project_data.project_name}}{%endblock%}
+{%block styles%}
+{%endblock%}
+{%block content%}
+<div class="row">
+    <div class="col-xs-4 col-xs-offset-4 text-center">
+        <!--{{project_data}}-->
+        <h2>{{project_data.project_title}}</h2>
+
+        {%for committed in commits%}
+            {{committed.author.login}}
+        {%endfor%}
+    </div>
+</div>
+
+{%endblock%}
+{%block JS%}
+{%endblock%}
