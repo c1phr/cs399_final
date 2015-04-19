@@ -65,7 +65,7 @@ class ProjectDashboard(BaseHandler):
         team_members = []
         for member in team:
             if member.user_id != user:
-                team_member = User.query(User.user_id == member.user_id).get()
+                team_member = User.query(User.key == member.user_id).get()
                 team_members.append(team_member)
 
         self.response.write(template.render(name="Projects", project_data=project_data,
@@ -75,7 +75,10 @@ class ProjectDashboard(BaseHandler):
 
 
 class ManageTeam(BaseHandler):
-    def post(self, project_id, username, method):
+    def post(self):
+        project_id = int(cgi.escape(self.request.get('project_id')))
+        username = cgi.escape(self.request.get('username'))
+        method = cgi.escape(self.request.get('method'))
         if method == "delete":
             old_user = User.query(User.user_id == username).get()
             project = Project.query(Project.project_id == project_id).get()
