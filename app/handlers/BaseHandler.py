@@ -1,5 +1,6 @@
 import webapp2
 from webapp2_extras import sessions
+from app.models.models import User
 
 
 '''
@@ -19,3 +20,13 @@ class BaseHandler(webapp2.RequestHandler):
     @webapp2.cached_property
     def session(self):
         return self.session_store.get_session(backend='memcache')
+
+    '''
+    Gets a user object based on the user key passed in.
+    Returns None if user doesn't exist
+    '''
+    def get_user(self, user_key):
+        if not user_key or user_key == "":
+            raise Exception("Invalid User_Key")
+        user = User.query(User.key == user_key)
+        return user
