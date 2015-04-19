@@ -32,7 +32,7 @@
             <table class="table-striped">
                 <thead style="font-weight:bold;">
                     <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>SHA</td>
                         <td>User</td>
                         <td>Description</td>
                         <td>Date</td>
@@ -44,7 +44,7 @@
                         {%break%}
                     {%endif%}
                     <tr>
-                        <td>{{loop.index}}</td>
+                        <td><a href="{{committed.html_url}}">{{committed.sha[:7]}}</a></td>
                         <td>{{committed.author.login}}</td>
                         <td>{{committed.commit.message}}</td>
                         <td>{{committed.commit.author.date}}</td>
