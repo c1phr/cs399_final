@@ -5,14 +5,30 @@
 {%endblock%}
 {%block content%}
 <div class="row">
-    <h3 class="text-center">{{project}} Issues</h3>
+    <div class="col-xs-12">
+            <h3 class="text-center">{{project}} Issues</h3>
      <button type="button" class="btn btn-success btn-sm center-block"  style="border-radius:20px;"  onclick="window.open('https://github.com/{{user.user_id}}/{{project}}/issues/new','_blank' )">
             Add New Issue
     </button>
     <hr/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-4 col-xs-offset-4 center-block">
+
+    </div>
+</div>
+<div class="row">
+
     <div class="col-xs-8 col-xs-offset-2">
         <div class="table-responsive">
             <table class="table-striped table">
+                <caption>
+                    <div class="btn-group center-block" role="group">
+                      <button type="button" class="btn btn-success" onclick="$('tr[data-state=closed]').hide(); $('tr[data-state=open]').show();">Open</button>
+                      <button type="button" class="btn btn-danger" onclick="$('tr[data-state=closed]').show(); $('tr[data-state=open]').hide();">Closed</button>
+                    </div>
+                </caption>
                 <thead>
                     <tr>
                         <td>
@@ -37,7 +53,29 @@
                 </thead>
                 <tbody>
                     {%for issue in open_issues%}
-                        <tr>
+                        <tr data-state="open">
+                            <td>
+                                {{issue.user.login}}
+                            </td>
+                            <td>
+                                {{issue.title}}
+                            </td>
+                            <td>
+                                {{issue.body}}
+                            </td>
+                            <td>
+                                <button class="btn-info btn btn-sm"  onclick="window.open('{{issue.html_url}}','_blank' )">Edit</button>
+                            </td>
+                            <td>
+                                <button class="btn-primary btn btn-sm">Make Requirement</button>
+                            </td>
+                            <!--<td>-->
+                                <!--<button class="btn-danger btn btn-sm closeOpenIssue" data-issue="{{issue.number}}" data-title="{{issue.title}}" data-body="{{issue.body}}" data-milestone="{{issue.milestone}}" data-assignee="{{issue.assignee}}">Close Issue</button>-->
+                            <!--</td>-->
+                        </tr>
+                    {%endfor%}
+                    {%for issue in closed_issues%}
+                        <tr data-state="closed" style="display:none;">
                             <td>
                                 {{issue.user.login}}
                             </td>
