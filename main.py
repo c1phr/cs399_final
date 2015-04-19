@@ -20,7 +20,7 @@ import os, sys, webapp2, random
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib"))
 
-from app.handlers import dashboard, authentication, user # Do not move this line above the previous sys.path.append()
+from app.handlers import dashboard, authentication, user, project # Do not move this line above the previous sys.path.append()
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': '02681a3c3e3ea7f6dc7776b6313f3fc4',
@@ -32,7 +32,7 @@ config['webapp2_extras.sessions'] = {
 app = webapp2.WSGIApplication([
     ('/login', authentication.Login),
     ('/user/(.*)', user.Information),
-    ('/loaded', dashboard.Loaded),
+    ('/loaded', project.Loaded),
     ('/project', dashboard.ProjectDashboard),
     ('/register', dashboard.Register),
     ('/', dashboard.MainHandler)
