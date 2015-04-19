@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%block title%}Testing Title{%endblock%}
+{%block title%}{{project}} - Issues{%endblock%}
 {%block styles%}
 
 {%endblock%}
@@ -27,6 +27,9 @@
                         <td>
 
                         </td>
+                        <!--<td>-->
+
+                        <!--</td>-->
                     </tr>
                 </thead>
                 <tbody>
@@ -42,11 +45,14 @@
                                 {{issue.body}}
                             </td>
                             <td>
-                                <button class="btn-info btn btn-sm">Edit</button>
+                                <button class="btn-info btn btn-sm"  onclick="window.open('{{issue.html_url}}','_blank' )">Edit</button>
                             </td>
                             <td>
-                                <button class="btn-danger btn btn-sm">Close</button>
+                                <button class="btn-primary btn btn-sm">Make Requirement</button>
                             </td>
+                            <!--<td>-->
+                                <!--<button class="btn-danger btn btn-sm closeOpenIssue" data-issue="{{issue.number}}" data-title="{{issue.title}}" data-body="{{issue.body}}" data-milestone="{{issue.milestone}}" data-assignee="{{issue.assignee}}">Close Issue</button>-->
+                            <!--</td>-->
                         </tr>
                     {%endfor%}
                 </tbody>
@@ -56,4 +62,14 @@
 </div>
 {%endblock%}
 {%block JS%}
+
+    $('.closeOpenIssue').click(function(){
+        $this = $(this);
+        $.post("/CloseIssue", {project: "{{project}}", issue_id:$this.attr('data-issue'), issue_title: $this.attr('data-title'), issue_body: $this.attr('data-body'), issue_assignee: $this.attr('data-assignee'), issue_milestone: $this.attr('data-milestone')}).done(function(msg) {
+         console.log(msg);
+        });
+
+
+})
+
 {%endblock%}

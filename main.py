@@ -39,6 +39,7 @@ app = webapp2.WSGIApplication([
     ('/register', dashboard.Register),
     ('/splash', dashboard.Splash),
     ('/issues/(.*)', issue.Home),
+    ('/CloseIssue', issue.CloseIssue),
     ('/', dashboard.MainHandler)
 ], debug=True, config=config)
 
