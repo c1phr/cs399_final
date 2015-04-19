@@ -6,6 +6,9 @@
 {%block content%}
 <div class="row">
     <h3 class="text-center">{{project}} Issues</h3>
+     <button type="button" class="btn btn-success btn-sm center-block"  style="border-radius:20px;"  onclick="window.open('https://github.com/{{user.user_id}}/{{project}}/issues/new','_blank' )">
+            Add New Issue
+    </button>
     <hr/>
     <div class="col-xs-8 col-xs-offset-2">
         <div class="table-responsive">
