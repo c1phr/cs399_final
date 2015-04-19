@@ -5,7 +5,7 @@ import cgi, urllib, json
 from google.appengine.api import urlfetch
 from secrets import secrets
 from app.handlers.BaseHandler import BaseHandler
-from app.models.models import User, Project
+from app.models.models import User, Project, Project_User
 from jinja2 import Environment, PackageLoader
 env = Environment(loader=PackageLoader('app', 'templates'))
 
@@ -54,3 +54,5 @@ class ProjectDashboard(BaseHandler):
         owner = self.session.get("user")
         project = Project(project_id = int(project_id), project_title = project_name, project_desc = project_description, project_owner = owner)
         project.put()
+        project_user_relation = Project_User(project_id=int(project_id), user_id=owner)
+        project_user_relation.put()
