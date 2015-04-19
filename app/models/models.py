@@ -31,3 +31,4 @@ class Task(ndb.Model):
 class Project_User(ndb.Model):
     project_id = ndb.KeyProperty(kind="Project")
     user_id = ndb.KeyProperty(kind="User")
+    is_owner = ndb.BooleanProperty(default=False)

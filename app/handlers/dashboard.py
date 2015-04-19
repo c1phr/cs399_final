@@ -29,7 +29,11 @@ class Splash(BaseHandler):
 class Register(BaseHandler):
     def get(self):
         template = env.get_template("registration.html")
-        self.response.write(template.render(name = "Registration", user = User.query(User.key == self.session.get("user")).get()))
+        user = self.session.get("user")
+        if user is None:
+            self.response.write(template.render(name = "Registration"))
+        else:
+            self.response.write(template.render(name = "Registration", user = User.query(User.key == self.session.get("user")).get()))
 
     def post(self):
         first = cgi.escape(self.request.get('first'))
@@ -63,5 +67,5 @@ class ProjectDashboard(BaseHandler):
         owner = self.session.get("user")
         project = Project(project_id = int(project_id), project_title = project_name, project_desc = project_description, project_owner = owner)
         project.put()
-        project_user_relation = Project_User(project_id=project.key, user_id=owner)
+        project_user_relation = Project_User(project_id=project.key, user_id=owner, is_owner=True)
         project_user_relation.put()
