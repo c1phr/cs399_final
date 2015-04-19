@@ -4,10 +4,12 @@
 {%endblock%}
 {%block content%}
 <div class="row" style="margin-top:50px;">
+    <h3 class="text-center">Loaded Projects</h3>
+    <hr/>
     <div class="col-xs-8 col-xs-offset-2">
         {%for projects in project%}
             <div class="col-xs-4">
-                <a class="btn-primary btn project_submit" data-project-desc="{{projects.description}}"  data-project-name="{{projects.name}}"  data-project-id="{{projects.id}}" style="margin-top: 10px; width: 100%;" href="#">
+                <a class="btn-success btn project_submit" data-project-desc="{{projects.project_description}}"  data-project-name="{{projects.project_title}}"  data-project-id="{{projects.project_id}}" style="margin-top: 10px; width: 100%;" href="/project/{{projects.project_id}}">
                     {{projects.project_title}}
                 </a>
             </div>
@@ -17,17 +19,4 @@
 
 {%endblock%}
 {%block JS%}
-    $('.project_submit').click(function () {
-        var $this = $(this);
-        $.post('/project', {
-            id: parseInt($(this).attr('data-project-id')),
-            name: $(this).attr('data-project-name'),
-            desc: $(this).attr('data-project-desc')
-        })
-            .success(function () {
-            $this.attr('disabled', true);
-            console.log("disabled");
-            $('.project-success').fadeIn(1500).fadeOut(4000);
-        })
-    })
 {%endblock%}
