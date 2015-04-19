@@ -37,7 +37,7 @@ class ProjectDashboard(BaseHandler):
         for language in language_contents:
             total += language_contents[language]
 
-        #grab the readme file
+        # grab the readme file
         readme_url = "https://api.github.com/repos/" + self.session.get(
             "username") + "/" + project_data.project_title + "/readme?access_token=" + self.session.get("access_token")
         result = urlfetch.fetch(url=readme_url,
@@ -48,8 +48,10 @@ class ProjectDashboard(BaseHandler):
 
 
         #grab the open current issues on Github
-        open_issues_url = "https://api.github.com/repos/" + self.session.get("username") + "/" + project_data.project_title + "/issues?access_token=" + self.session.get("access_token")+"&state=open"
-        result = urlfetch.fetch(url = open_issues_url,
+        open_issues_url = "https://api.github.com/repos/" + self.session.get(
+            "username") + "/" + project_data.project_title + "/issues?access_token=" + self.session.get(
+            "access_token") + "&state=open"
+        result = urlfetch.fetch(url=open_issues_url,
                                 method=urlfetch.GET,
                                 headers={"Accept": "application/json"},
                                 deadline=10)
@@ -69,19 +71,19 @@ class ProjectDashboard(BaseHandler):
         self.response.write(template.render(name="Projects", project_data=project_data,
                                             user=User.query(User.key == self.session.get("user")).get(),
                                             commits=commit_contents, languages=language_contents, total=total,
-                                            readme=readme_contents, open_issue = open_issue, team=team_members))
+                                            readme=readme_contents, open_issue=open_issue, team=team_members))
 
 
 class ManageTeam(BaseHandler):
-    """
-    Post request takes in the project_id of the project that team members are being added for and a complete list of
-    new team members. All old team members (except project owner) are deleted and re-added to the datastore.
-    """
+    @BaseHandler.rest_req
     def delete(self, project_id, username):
         old_user = User.query(User.user_id == username).get()
         project = Project.query(Project.project_id == project_id).get()
-        old_member = Project_User.query(Project_User.project_id == project.key and Project_User.user_id == old_user.key).get()
+        old_member = Project_User.query(
+            Project_User.project_id == project.key and Project_User.user_id == old_user.key).get()
         old_member.key.delete()
+
+    @BaseHandler.rest_req
     def put(self, project_id, username):
         new_user = User.query(User.user_id == username).get()
         project = Project.query(Project.project_id == project_id).get()
