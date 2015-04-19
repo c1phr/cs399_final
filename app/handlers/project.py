@@ -1,19 +1,27 @@
 import os
-import webapp2
+import webapp2, cgi
 import json
+from google.appengine.api import urlfetch
 from app.handlers.BaseHandler import BaseHandler
 from app.models.models import User, Project, Project_User
 from jinja2 import Environment, PackageLoader
 env = Environment(loader=PackageLoader('app', 'templates'))
 
 class ProjectDashboard(BaseHandler):
-    def get(self, project_id):
-        project_data = Project.query(project_id == project_id).get()
-        template = env.get_template("")
-        if project_data is None:
-            self.response.write(template.render(name="Invalid Project", project_data="{}"))
-        else:
-            self.response.write(template.render(name=project_data.project_title, project_data=json.dumps(project_data)))
+    def get(self, id):
+        project_data = Project.query(Project.project_id == int(id)).get()
+        template = env.get_template("project_dashboard.html")
+        commit_url = "https://api.github.com/repos/" + self.session.get("username") + "/" + project_data.project_title + "/commits?access_token=" + self.session.get("access_token")
+        result = urlfetch.fetch(url = commit_url,
+                                method=urlfetch.GET,
+                                headers={"Accept": "application/json"},
+                                deadline=10)
+        commit_contents = json.loads(result.content)
+
+        #if project_data is None:
+           # self.response.write(template.render(name="Invalid Project", project_data="{}", user = User.query(User.key == self.session.get("user")).get()))
+        #else:
+        self.response.write(template.render(name="Projects", project_data= project_data, user = User.query(User.key == self.session.get("user")).get(), commits = commit_contents))
 
 class Loaded(BaseHandler):
     def get(self):
