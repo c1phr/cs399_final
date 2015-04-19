@@ -30,14 +30,3 @@ class BaseHandler(webapp2.RequestHandler):
             raise Exception("Invalid User_Key")
         user = User.query(User.key == user_key)
         return user
-
-    def rest_req(func):
-        """ Decorator to handle spoofing RESTful verbs """
-        def inner(handler):
-            params = handler.request.params
-            if 'http_verb' in params:
-                if params['http_verb'] == 'PUT':
-                    handler.put()
-                elif params['http_verb'] == 'DELETE':
-                    handler.delete()
-        return inner

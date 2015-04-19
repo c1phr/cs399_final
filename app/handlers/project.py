@@ -75,20 +75,18 @@ class ProjectDashboard(BaseHandler):
 
 
 class ManageTeam(BaseHandler):
-    @BaseHandler.rest_req
-    def delete(self, project_id, username):
-        old_user = User.query(User.user_id == username).get()
-        project = Project.query(Project.project_id == project_id).get()
-        old_member = Project_User.query(
-            Project_User.project_id == project.key and Project_User.user_id == old_user.key).get()
-        old_member.key.delete()
-
-    @BaseHandler.rest_req
-    def put(self, project_id, username):
-        new_user = User.query(User.user_id == username).get()
-        project = Project.query(Project.project_id == project_id).get()
-        new_member = Project_User(project_id=project.key, user_id=new_user.key)
-        new_member.put()
+    def post(self, project_id, username, method):
+        if method == "delete":
+            old_user = User.query(User.user_id == username).get()
+            project = Project.query(Project.project_id == project_id).get()
+            old_member = Project_User.query(
+                Project_User.project_id == project.key and Project_User.user_id == old_user.key).get()
+            old_member.key.delete()
+        elif method == "put":
+            new_user = User.query(User.user_id == username).get()
+            project = Project.query(Project.project_id == project_id).get()
+            new_member = Project_User(project_id=project.key, user_id=new_user.key)
+            new_member.put()
 
 
 class Loaded(BaseHandler):
