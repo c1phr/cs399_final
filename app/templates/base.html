@@ -32,30 +32,34 @@
 <body>
 
 <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 0;background-color:#337BB8;">
-  <div class="container-fluid">
+    <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#" style="color:white;">Git Managed</a>
+        <a class="navbar-brand" href="#" style="color:white;">Git Managed</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-
-          <!-- GRAVATAR HERE -->
-          <li><img src="" width='40px' height='40px' style="margin-top:5px; margin-bottom:5px;" class="img-circle" alt="Circular Image"/></li>
-          <li><a href="/login" style="color:white">Sign In</a></li>
-        <!--<li><a href="#">Link</a></li>-->
+        <li><img src="{{user.gravatar_url}}" width='40px' height='40px' style="margin-top:5px; margin-bottom:5px;" class="img-circle" alt=""/>
+</li>
+        <li class="dropdown">
+          <a href="#" style="color:white;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user.first_name}}<span class="caret"></span></a>
+          <ul class="dropdown-menu" style="color:#337BB8" role="menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Info</a></li>
+          </ul>
+        </li>
+        <li><a href="/login" style="color:white;">Sign In</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+
 <aside id="sidebar" style="z-index:9999;">
    <div class="sidebar-left">
    <h6 style="color:#777; margin-left: 0.5em;">MENU</h6>
