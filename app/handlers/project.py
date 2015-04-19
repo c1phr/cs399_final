@@ -18,14 +18,17 @@ class ProjectDashboard(BaseHandler):
 class Loaded(BaseHandler):
     def get(self):
         template = env.get_template("loaded_projects.html")
-        user_ids = self.session.get("user")
-        if user_ids is None:
+        if self.session.get("user") is None:
             self.redirect("/login")
         loaded_projects_user = Project_User.query(Project_User.user_id == self.session.get("user")).fetch()
-        list_of_projects = []
         if loaded_projects_user is None:
             self.response.write(template.render(name = "Project Overview", project = "{}"))
             return
+        list_of_projects = []
         for project in loaded_projects_user:
-            list_of_projects.append(Project.query(Project.key == project.key).get())
+            Project_stuffs = Project.query(Project.project_id == project.key).fetch()
+            get_record = ndb.Key(Project, project.project_id).get()
+            # project_data = {"project_title":Project_stuffs.project_title, "project_id":Project_stuffs.project_id,
+            #                 "project_desc":Project_stuffs.project_desc, "project_owner":Project_stuffs.project_owner}
+            list_of_projects.append(get_record)
         self.response.write(template.render(name = "Project Overview", project = json.dumps(list_of_projects)))
