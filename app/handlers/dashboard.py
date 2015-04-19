@@ -16,6 +16,11 @@ class MainHandler(BaseHandler):
         #self.response.write(template.render(name = "Dashboard", user = User.query(), token = self.session.get("access_token")))
         self.response.write(template.render(name = "Dashboard", token = self.session.get("access_token"), user = User.query(User.key == self.session.get("user")).get()))
 
+class Splash(BaseHandler):
+    def get(self):
+        template = env.get_template('splash.html')
+        self.response.write(template.render(name = "Splash"))
+
 
 class Register(BaseHandler):
     def get(self):
