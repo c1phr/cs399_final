@@ -12,9 +12,9 @@ td{
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="border-radius:20px;">
             README
         </button>
-        <a type="button" class="btn btn-info btn-sm"  style="border-radius:20px;" href="https://github.com/{{user.user_id}}/{{project_data.project_title}}/issues/">
+        <button type="button" class="btn btn-info btn-sm"  style="border-radius:20px;" onclick="window.open('https://github.com/{{user.user_id}}/{{project_data.project_title}}/issues/','_blank' )">
             {{open_issue}} Open Issues
-        </a>
+        </button>
          <button type="button" class="btn btn-success btn-sm"  style="border-radius:20px;" onclick="$('.Commits').is(':hidden') ? $('.Commits').show() :$('.Commits').hide() ">
             Recent Commits
         </button>
@@ -32,8 +32,19 @@ td{
             {%endfor%}
         </div>
         <h6 style="font-weight:bold;">{{total}} total lines of code</h6>
+        {{team}}
     </div>
 </div>
+
+<div class="row">
+
+    <div class="col-xs-6 col-xs-offset-3">
+        <input class="form-control" type="text" placeholder="Add Team Member" />
+    </div>
+
+</div>
+
+
 <div class="row Commits" style="display:none;">
     <div class="col-xs-8 col-xs-offset-2">
         <h4 class="text-center">Recent Commits</h4>
@@ -62,7 +73,6 @@ td{
                 </tbody>
             </table>
         </div>
-
     </div>
 </div>
 
