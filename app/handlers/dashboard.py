@@ -15,8 +15,7 @@ class MainHandler(BaseHandler):
     def get(self):
         user = self.session.get("user")
         if user is None:
-            self.redirect("/login")
-
+            return self.redirect("/login")
         # grabbing five most latest issues from ALL repositories
         access_url = "https://api.github.com/user/issues?access_token=" + self.session.get("access_token") + "&filter=all&direction=dec"
         result_issues = urlfetch.fetch(url = access_url,
@@ -27,7 +26,6 @@ class MainHandler(BaseHandler):
         issueList = []
         for i in range(0,5):
             issueList.append(issues[i])
-
         # grabbing 5 most latest commits from ALL repositories
         access_url = "https://api.github.com/user/repos?access_token=" + self.session.get("access_token") + "&filter=all&sort=pushed&direction=dec"
         result_repo = urlfetch.fetch(url = access_url,
@@ -64,8 +62,6 @@ class MainHandler(BaseHandler):
                 else:
                     repo_time_counter += 1
                     break
-
-
         template = env.get_template('index.html')
         self.response.write(template.render(name = "Dashboard", issues=issueList, commits=five_most_recent_commits, token = self.session.get("access_token"), user = User.query(User.key == self.session.get("user")).get()))
 
