@@ -38,7 +38,7 @@ class Login(BaseHandler):
         if user is None:
             self.session["username"] = user_contents["login"]
             self.session["gravatar"] = user_contents["avatar_url"]
-            self.redirect("/register")
+            return self.redirect("/register")
         else:
             self.session["user"] = user.key
-            self.redirect("/")
+            return self.redirect("/")

@@ -89,14 +89,14 @@ class Register(BaseHandler):
         person = User(user_id= self.session.get("username"), first_name=first, last_name= last, email= email, gravatar_url = self.session.get("gravatar") )
         person.put()
         self.session["user"] = person.key
-        self.redirect("/")
+        return self.redirect("/")
 
 
 class ProjectDashboard(BaseHandler):
     def get(self):
         token = self.session.get("access_token")
         if not token:
-            self.redirect("/login")
+            return self.redirect("/login")
 
         access_url = "https://api.github.com/user/repos?type=owner&access_token=" + self.session.get("access_token")
         result = urlfetch.fetch(url = access_url,

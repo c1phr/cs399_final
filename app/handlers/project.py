@@ -96,7 +96,7 @@ class Loaded(BaseHandler):
     def get(self):
         template = env.get_template("loaded_projects.html")
         if self.session.get("user") is None:
-            self.redirect("/login")
+            return self.redirect("/login")
         loaded_projects_user = Project_User.query(Project_User.user_id == self.session.get("user")).fetch()
         if loaded_projects_user is None:
             self.response.write(template.render(name="Project Overview", project="{}"))
