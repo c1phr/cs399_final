@@ -11,7 +11,8 @@ class User(ndb.Model):
 
 class Requirements(ndb.Model):
     req_id = ndb.IntegerProperty(required=True)
-    parent_id = ndb.KeyProperty(kind="Requirements")
+    parent_id = ndb.KeyProperty(kind="Requirements", required=False)
+    req_title = ndb.TextProperty()
     req_desc = ndb.TextProperty()
     project_id = ndb.KeyProperty(kind="Project")
 
