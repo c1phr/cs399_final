@@ -14,8 +14,7 @@ env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.
 class Home(BaseHandler):
     def get(self, id):
         template = env.get_template("issues.html")
-        open_issues_url = "https://api.github.com/repos/" + self.session.get(
-            "username") + "/" + cgi.escape(id) + "/issues?access_token=" + self.session.get(
+        open_issues_url = "https://api.github.com/repos/" +  BaseHandler.user_id(self) + "/" + cgi.escape(id) + "/issues?access_token=" + self.session.get(
             "access_token") + "&state=open"
         result = urlfetch.fetch(url=open_issues_url,
                                 method=urlfetch.GET,
@@ -24,8 +23,7 @@ class Home(BaseHandler):
         open_issues_content = json.loads(result.content)
 
         #closed issues
-        closed_issues_url = "https://api.github.com/repos/" + self.session.get(
-            "username") + "/" + cgi.escape(id) + "/issues?access_token=" + self.session.get(
+        closed_issues_url = "https://api.github.com/repos/" +  BaseHandler.user_id(self) + "/" + cgi.escape(id) + "/issues?access_token=" + self.session.get(
             "access_token") + "&state=closed"
         result = urlfetch.fetch(url=closed_issues_url,
                                 method=urlfetch.GET,
@@ -52,7 +50,7 @@ class CloseIssue(BaseHandler):
                      "milestone" : issue_milestone,
                      "labels": ([])}
         data = urllib.urlencode(data_vals)
-        open_issues_url = "https://api.github.com/repos/" + self.session.get("username") + "/" + project + "/issues/" + issue_id + "?access_token=" + self.session.get("access_token")
+        open_issues_url = "https://api.github.com/repos/" +  BaseHandler.user_id(self) + "/" + project + "/issues/" + issue_id + "?access_token=" + self.session.get("access_token")
         result = urlfetch.fetch(url=open_issues_url,
                                 payload=data,
                                 method=urlfetch.PATCH,
