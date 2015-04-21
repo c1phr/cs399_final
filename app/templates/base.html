@@ -12,7 +12,8 @@
         left: 0;
         background:#2E313D;
         top: 50px;
-        width:200px;
+        width:11%;
+            min-width:200px;
         overflow-y: auto;
     }
     #navigation-menu{
@@ -152,7 +153,7 @@
         <h4>{{name}}</h4>
     </div>
 </div>
-<div class="container">
+<div class="container topContainer">
     {% block content %}
 
     {%endblock%}
@@ -167,9 +168,12 @@
     $(document).ready(function(){
         //$('body').css("background", "white");
         $('#breadcrumbs').css({marginLeft: $('#sidebar').width() + 10});
+        $('.topContainer').css({paddingLeft: $('aside').width()})
+
         $.get('/login');
         $(window).resize(function(){
             $('#breadcrumbs').css({marginLeft: $('#sidebar').width() + 10});
+            $('.topContainer').css({paddingLeft: $('aside').width()})
 
         })
         {%block JS%}
