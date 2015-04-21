@@ -63,7 +63,7 @@ class MainHandler(BaseHandler):
                     repo_time_counter += 1
                     break
         template = env.get_template('index.html')
-        self.response.write(template.render(name = "Dashboard", issues=issueList, commits=five_most_recent_commits, token = self.session.get("access_token"), user = User.query(User.key == self.session.get("user")).get()))
+        self.response.write(template.render(name = "Dashboard", issues=issueList, commits=five_most_recent_commits, token = self.session.get("access_token"), user = BaseHandler.user(self)))
 
 
 class Splash(BaseHandler):
@@ -80,7 +80,7 @@ class Register(BaseHandler):
         if user is None:
             self.response.write(template.render(name = "Registration", user = ""))
         else:
-            self.response.write(template.render(name = "Registration", user = User.query(User.key == self.session.get("user")).get()))
+            self.response.write(template.render(name = "Registration", user = BaseHandler.user(self)))
 
     def post(self):
         first = cgi.escape(self.request.get('first'))
@@ -105,7 +105,7 @@ class ProjectDashboard(BaseHandler):
                                 deadline=10)
         project_contents = json.loads(result.content)
         template = env.get_template('project.html')
-        self.response.write(template.render(name = "Project Overview", project = project_contents, user = User.query(User.key == self.session.get("user")).get()))
+        self.response.write(template.render(name = "Project Overview", project = project_contents, user = BaseHandler.user(self)))
 
     def post(self):
         project_id = cgi.escape(self.request.get('id'))

@@ -31,7 +31,7 @@ class Home(BaseHandler):
                                 deadline=10)
         closed_issues_content = json.loads(result.content)
         self.response.write(template.render(name="Issues",open_issues = open_issues_content,closed_issues = closed_issues_content,
-                                            user=User.query(User.key == self.session.get("user")).get(), project = cgi.escape(id)))
+                                            user=BaseHandler.user(self), project = cgi.escape(id)))
 
 
 
@@ -57,5 +57,3 @@ class CloseIssue(BaseHandler):
                                 headers={"Accept": "application/json"},
                                 deadline=10)
         #open_issues_content = json.loads(result.content)
-
-        self.response.out.write("hey")

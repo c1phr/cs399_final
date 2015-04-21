@@ -68,7 +68,7 @@ class ProjectDashboard(BaseHandler):
                 team_members.append(team_member)
 
         self.response.write(template.render(name="Projects", project_data=project_data,
-                                            user=User.query(User.key == self.session.get("user")).get(),
+                                            user=BaseHandler.user(self),
                                             commits=commit_contents, languages=language_contents, total=total,
                                             readme=readme_contents, open_issue=open_issue, team=team_members))
 
@@ -105,4 +105,4 @@ class Loaded(BaseHandler):
             project_stuffs = Project.query(Project.key == project.project_id).get()
             list_of_projects.append(project_stuffs)
         self.response.write(template.render(name="Project Overview", project=list_of_projects,
-                                            user=User.query(User.key == self.session.get("user")).get()))
+                                            user=BaseHandler.user(self)))

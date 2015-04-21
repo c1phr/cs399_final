@@ -31,7 +31,32 @@ class BaseHandler(webapp2.RequestHandler):
         user = User.query(User.key == user_key)
         return user
 
-    @staticmethod
+    #Returns user's username
     def user_id(self):
         user = User.query(User.key == self.session.get("user")).get()
         return user.user_id
+
+    #Returns user email
+    def user_email(self):
+        user = User.query(User.key == self.session.get("user")).get()
+        return user.email
+
+    #Returns user first name
+    def user_first(self):
+        user = User.query(User.key == self.session.get("user")).get()
+        return user.first
+
+    #Returns user last name
+    def user_last(self):
+        user = User.query(User.key == self.session.get("user")).get()
+        return user.last
+
+    #Returns user gravatar
+    def user_gravatar(self):
+        user = User.query(User.key == self.session.get("user")).get()
+        return user.gravatar_url
+
+    #Returns entire user object
+    def user(self):
+        user = User.query(User.key == self.session.get("user")).get()
+        return user
