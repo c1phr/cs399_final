@@ -16,11 +16,3 @@ class Information(BaseHandler):
         user = User.query(User.user_id == clean_username).get()
         template = env.get_template('user.html')
         self.response.write(template.render(name = "User Information", user = user))
-
-
-class CurrentUser(object):
-
-    @staticmethod
-    def id(self):
-        user = User.query(User.key == self.session.get("user")).get()
-        return user.user_id

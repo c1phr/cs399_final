@@ -1,12 +1,9 @@
 import os
-import webapp2, cgi, sys
-import base64
-import json, collections
+import webapp2, cgi
+import json
 from google.appengine.api import urlfetch
-from app.handlers.user import CurrentUser
 from app.handlers.BaseHandler import BaseHandler
 from app.models.models import User, Project, Project_User
-from google.appengine.ext import ndb
 from jinja2 import Environment, PackageLoader
 
 env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.ext.loopcontrols'])
@@ -20,7 +17,7 @@ class ProjectDashboard(BaseHandler):
             self.redirect("/login")
         username = User.query(User.key == self.session.get("user"))
         # grab the commits on the project.
-        commit_url = "https://api.github.com/repos/" + CurrentUser.id(self) + "/" + project_data.project_title + "/commits?access_token=" + self.session.get(
+        commit_url = "https://api.github.com/repos/" + BaseHandler.user_id(self) + "/" + project_data.project_title + "/commits?access_token=" + self.session.get(
             "access_token")
         result = urlfetch.fetch(url=commit_url,
                                 method=urlfetch.GET,
@@ -29,7 +26,7 @@ class ProjectDashboard(BaseHandler):
         commit_contents = json.loads(result.content)
 
         # grab the languages of the project
-        language_url = "https://api.github.com/repos/" + CurrentUser.id(self) + "/" + project_data.project_title + "/languages?access_token=" + self.session.get(
+        language_url = "https://api.github.com/repos/" + BaseHandler.user_id(self) + "/" + project_data.project_title + "/languages?access_token=" + self.session.get(
             "access_token")
         result = urlfetch.fetch(url=language_url,
                                 method=urlfetch.GET,
@@ -41,7 +38,7 @@ class ProjectDashboard(BaseHandler):
             total += language_contents[language]
 
         # grab the readme file
-        readme_url = "https://api.github.com/repos/" + CurrentUser.id(self) + "/" + project_data.project_title + "/readme?access_token=" + self.session.get(
+        readme_url = "https://api.github.com/repos/" +  BaseHandler.user_id(self) + "/" + project_data.project_title + "/readme?access_token=" + self.session.get(
             "access_token")
         result = urlfetch.fetch(url=readme_url,
                                 method=urlfetch.GET,
@@ -51,7 +48,7 @@ class ProjectDashboard(BaseHandler):
 
 
         # grab the open current issues on Github
-        open_issues_url = "https://api.github.com/repos/" + CurrentUser.id(self) + "/" + project_data.project_title + "/issues?access_token=" + self.session.get(
+        open_issues_url = "https://api.github.com/repos/" +  BaseHandler.user_id(self) + "/" + project_data.project_title + "/issues?access_token=" + self.session.get(
             "access_token") + "&state=open"
         result = urlfetch.fetch(url=open_issues_url,
                                 method=urlfetch.GET,

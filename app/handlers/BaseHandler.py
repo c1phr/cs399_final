@@ -30,3 +30,8 @@ class BaseHandler(webapp2.RequestHandler):
             raise Exception("Invalid User_Key")
         user = User.query(User.key == user_key)
         return user
+
+    @staticmethod
+    def user_id(self):
+        user = User.query(User.key == self.session.get("user")).get()
+        return user.user_id
