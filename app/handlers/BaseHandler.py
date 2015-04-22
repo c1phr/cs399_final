@@ -1,5 +1,6 @@
 import webapp2
 from webapp2_extras import sessions
+from app.fakextures import Fakextures
 from app.models.models import User
 
 
@@ -9,6 +10,10 @@ Session GET: self.session.get('<prop_name>') -> Then dump this to the template
 Session INSERT: self.session['<prop_name>'] = <value>
 '''
 class BaseHandler(webapp2.RequestHandler):
+    def __init__(self, request, response):
+        self.initialize(request, response)
+        Fakextures.install_fixtures()
+
     def dispatch(self):
         self.session_store = sessions.get_store(request=self.request)
 
