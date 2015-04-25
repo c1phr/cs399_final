@@ -8,11 +8,12 @@
     <h2 class="text-center">Requirements</h2>
     {%for requirement in requirements%}
         <div class="col-xs-4 text-center">
-            <span class="glyphicon-pencil glyphicon" onclick="editMode(this)" style="position:absolute; top: 0; right: -10px; cursor:pointer;"></span>
+            <span class="glyphicon-pencil glyphicon non-edit"  onclick="editMode(this)" style="position:absolute; top: 0; right: -10px; cursor:pointer;"></span>
+            <span class="glyphicon-trash glyphicon edit-requirement" data-id="{{requirement.req_id}}" onclick="removeRequirement(this)" style="position:absolute; top: 0; right: -10px; cursor:pointer; display:none;"></span>
             <input  type="text" name="title" class="form-control edit-requirement" style="display:none;" value="{{requirement.req_title}}"/>
             <textarea oninput='changeText(this)'  name="description" class="form-control edit-requirement" cols="30" rows="10" style="margin-top:10px;display:none;" value="{{requirement.req_desc}}">{{requirement.req_desc}}</textarea>
             <button type="button" class="btn-primary btn edit-requirement" data-parent="{{requirement.parent_id}}" data-id="{{requirement.req_id}}"  onclick="updateRequirement(this)" style="margin-top:10px;display:none;">Update</button>
-            <button type="button" class="btn-primary btn edit-requirement" onclick="editMode(this)" style="margin-top:10px;display:none;">Cancel</button>
+            <button type="button" class="btn-default btn edit-requirement" onclick="editMode(this)" style="margin-top:10px;display:none;">Cancel</button>
             <h3 class="non-edit title">{{requirement.req_title}}</h3>
             <h4 class="non-edit desc">{{requirement.req_desc}}</h4>
         </div>
@@ -22,7 +23,7 @@
 {%block JS%}
     function editMode(element) {
         $this = $(element);
-        $this.siblings('.non-edit').toggle();
+        $this.parent().children('.non-edit').toggle();
         $this.parent().children('.edit-requirement').toggle();
         $this.siblings('input.edit-requirement').val($this.siblings('h3').text());
         $this.siblings('textarea.edit-requirement').val($this.siblings('h4').text())
@@ -49,6 +50,20 @@
         })
 
     }
+
+function removeRequirement(element){
+$this = $(element);
+ $.ajax({
+            method: "POST",
+            url: "/requirements/{{project_id}}",
+            data: {
+                id: $this.attr('data-id'),
+            }
+        })
+        .success(function (msg) {
+            $this.parent().remove();
+        })
+}
 
     function changeText(element) {
         var $this = $(element);
