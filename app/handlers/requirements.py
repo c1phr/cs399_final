@@ -1,5 +1,6 @@
 import os
 import traceback
+from google.appengine.ext import ndb
 import webapp2, cgi
 import json
 from google.appengine.api import urlfetch
@@ -15,18 +16,17 @@ class RequirementsDashboard(BaseHandler):
         template = env.get_template("requirements.html")
         project = Project.query(Project.project_id == int(project_id)).get()
         requirements = Requirements.query(Requirements.project_id == project.key).fetch()
-        # This can be changed as we create the template for requirements, leaving it here for testing
         self.response.write(template.render(name = "Requirements",user = BaseHandler.user(self), requirements = requirements, project_id = project_id))
 
     def put(self, project_id):
         project = Project.query(Project.project_id == int(project_id)).get()
         parent = cgi.escape(self.request.get("parent"))
-        id = int(cgi.escape(self.request.get("id")))
+        requirement_id = ndb.Key(urlsafe=cgi.escape(self.request.get("id")))
         description = cgi.escape(self.request.get("description"))
         title = cgi.escape(self.request.get("title"))
         method = cgi.escape(self.request.get("method"))
         if method == "update":
-            requirement = Requirements.query(Requirements.req_id == id ).get()
+            requirement = requirement_id.get()
             requirement.req_title = title
             requirement.req_desc = description
             if parent != "None":
@@ -43,27 +43,11 @@ class RequirementsDashboard(BaseHandler):
                 self.response.status_message = traceback.format_exception()
 
     def delete(self, requirement_id):
-        requirement = Requirements.query(Requirements.req_id == int(cgi.escape(requirement_id))).get()
+        requirement_key = ndb.Key(urlsafe=cgi.escape(requirement_id))
         try:
-            requirement.key.delete()
+            requirement_key.delete()
             self.response.status_int = 200
             self.response.status_message = "Requirement Deleted Successfully"
         except:
             self.response.status_int = 500
             self.response.status_message = traceback.format_exception()
-
-    # def update(self, requirement_id):
-    #     requirement = Requirements(Requirements.key == requirement_id)
-    #     parent = cgi.escape(self.request.get("parent"))
-    #     description = cgi.escape(self.request.get("description"))
-    #     title = cgi.escape(self.request.get("title"))
-    #     requirement.parent_id = parent
-    #     requirement.req_desc = description
-    #     requirement.req_title = title
-    #     try:
-    #         requirement.put()
-    #         self.response.status_int = 200
-    #         self.response.status_message = "Requirement Updated Successfully"
-    #     except:
-    #         self.response.status_int = 500
-    #         self.response.status_message = traceback.format_exception()
