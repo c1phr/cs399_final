@@ -163,26 +163,9 @@
 <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
-<script>
+<script src="/js/base.js"></script>
+{%block JS%}
 
-    $(document).ready(function(){
-        //$('body').css("background", "white");
-        $('#breadcrumbs').css({marginLeft: $('#sidebar').width() + 10});
-        $('.topContainer').css({paddingLeft: $('aside').width()})
-
-        $.get('/login');
-        $(window).resize(function(){
-            $('#breadcrumbs').css({marginLeft: $('#sidebar').width() + 10});
-            $('.topContainer').css({paddingLeft: $('aside').width()})
-
-        })
-    })
-        {%block JS%}
-
-        {%endblock%}
-
-
-</script>
-
+{%endblock%}
 </body>
 </html>
