@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{%block title%}Testing Title{%endblock%}
+{%block styles%}
+
+{%endblock%}
+{%block content%}
+<div class="row">
+    <h2 class="text-center">Requirements</h2>
+    {%for requirement in requirements%}
+        <div class="col-xs-4 text-center">
+            <h3>{{requirement.req_title}}</h3>
+            <h4>{{requirement.req_desc}}</h4>
+        </div>
+    {%endfor%}
+</div>
+{%endblock%}
+{%block JS%}
+{%endblock%}
