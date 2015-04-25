@@ -15,7 +15,8 @@ class Fakextures():
             Fakextures.install_projects()
         if Project_User.query().count() == 0:
             Fakextures.install_user_projects()
-
+        if Requirements.query().count() == 0:
+            Fakextures.install_requirements()
     @staticmethod
     def clear_datastore():
         # Remember to delete in order that foreign keys agree with to avoid errors
@@ -59,4 +60,7 @@ class Fakextures():
 
     @staticmethod
     def install_requirements():
-        pass
+        requirement = Requirements(req_id = 1, req_title = "Github Issue Tracking System", req_desc = "Building a system to track the issues from Github and potentially convert them to requirements.",
+                                   project_id=Project.query(Project.project_id ==31822394).get(use_cache=False).key)
+        requirement.put()
+        print "Requirements Installed"
