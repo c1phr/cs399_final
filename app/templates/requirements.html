@@ -15,10 +15,10 @@
     {%for requirement in requirements%}
         <div class="col-xs-4 text-center">
             <span class="glyphicon-pencil glyphicon non-edit"  onclick="editMode(this)" style="position:absolute; top: 0; right: -10px; cursor:pointer;"></span>
-            <span class="glyphicon-trash glyphicon edit-requirement" data-id="{{requirement.key.urlsafe()}}" onclick="removeRequirement(this)" style="position:absolute; top: 0; right: -10px; cursor:pointer; display:none;"></span>
+            <span class="glyphicon-trash glyphicon edit-requirement" data-id="{{requirement.key.urlsafe()}}" data-url-target="{{project_id}}" onclick="removeRequirement(this)" style="position:absolute; top: 0; right: -10px; cursor:pointer; display:none;"></span>
             <input  type="text" name="title" class="form-control edit-requirement" style="display:none;" value="{{requirement.req_title}}"/>
             <textarea oninput='changeText(this)'  name="description" class="form-control edit-requirement" cols="30" rows="10" style="margin-top:10px;display:none;" value="{{requirement.req_desc}}">{{requirement.req_desc}}</textarea>
-            <button type="button" class="btn-primary btn edit-requirement" data-parent="{{requirement.parent_id}}" data-id="{{requirement.key.urlsafe()}}"  onclick="updateRequirement(this)" style="margin-top:10px;display:none;">Update</button>
+            <button type="button" class="btn-primary btn edit-requirement" data-parent="{{requirement.parent_id}}" data-url-target="{{project_id}}" data-id="{{requirement.key.urlsafe()}}"  onclick="updateRequirement(this)" style="margin-top:10px;display:none;">Update</button>
             <button type="button" class="btn-default btn edit-requirement" onclick="editMode(this)" style="margin-top:10px;display:none;">Cancel</button>
             <h3 class="non-edit title">{{requirement.req_title}}</h3>
             <h4 class="non-edit desc">{{requirement.req_desc}}</h4>
@@ -44,7 +44,7 @@
                 </select>
                 <input class="form-control" style="margin-top:10px;" type="text" placeholder="Title"/>
                 <textarea oninput='changeText(this)' class="form-control" style="margin-top:10px;" name="descr" placeholder="Description" cols="30" rows="10"></textarea>
-                  <button style="margin-top:10px;" class="btn-success btn col-xs-12" type="button" data-id="{{project_id}}" onclick="addRequirement(this)">Add</button>
+                  <button style="margin-top:10px;" class="btn-success btn col-xs-12" type="button" data-url-target="{{project_id}}" data-id="{{project_id}}" onclick="addRequirement(this)">Add</button>
               </div>
           </div>
       </div>
@@ -53,74 +53,5 @@
 </div>
 {%endblock%}
 {%block JS%}
-    function editMode(element) {
-        $this = $(element);
-        $this.parent().children('.non-edit').toggle();
-        $this.parent().children('.edit-requirement').toggle();
-        $this.siblings('input.edit-requirement').val($this.siblings('h3').text());
-        $this.siblings('textarea.edit-requirement').val($this.siblings('h4').text())
-    }
-
-    function updateRequirement(element) {
-
-        $this = $(element);
-        $.ajax({
-            method: "PUT",
-            url: "/requirements/{{project_id}}",
-            data: {
-                title: $this.siblings('input.edit-requirement').val(),
-                description: $this.siblings('textarea.edit-requirement').text(),
-                parent: $this.attr('data-parent'),
-                id: $this.attr('data-id'),
-                method: "update"
-            }
-        })
-            .success(function (msg) {
-            $this.siblings('h3').text($this.siblings('input.edit-requirement').val());
-            $this.siblings('h4').text($this.siblings('textarea.edit-requirement').text());
-            editMode($this);
-        })
-
-    }
-
-    function addRequirement(element) {
-
-        $this = $(element);
-        $.ajax({
-            method: "PUT",
-            url: "/requirements/{{project_id}}",
-            data: {
-                title: $this.siblings('input').val(),
-                description: $this.siblings('textarea').text(),
-                parent: $this.siblings('select').val(),
-                project: $this.attr('data-id'),
-                method: "Add"
-            }
-        })
-        .success(function (msg) {
-            $('#addRequirement').modal('hide')
-        })
-
-    }
-
-
-function removeRequirement(element){
-$this = $(element);
- $.ajax({
-            method: "PUT",
-            url: "/requirements/{{project_id}}",
-            data: {
-                id: $this.attr('data-id'),
-                method: "delete"
-            }
-        })
-        .success(function (msg) {
-            $this.parent().remove();
-        })
-}
-
-    function changeText(element) {
-        var $this = $(element);
-        $this.text($this.val())
-    }
+<script src="/js/requirements.js"></script>
 {%endblock%}
