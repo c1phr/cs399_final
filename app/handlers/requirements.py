@@ -42,17 +42,15 @@ class RequirementsDashboard(BaseHandler):
                 self.response.status_int = 500
                 self.response.status_message = traceback.format_exception()
 
-    def post(self, project_id):
-        project = Project.query(Project.project_id == int(project_id)).get()
-        id = int(cgi.escape(self.request.get("id")))
-        requirement = Requirements.query(Requirements.req_id == id, Requirements.project_id == project.key).get()
-        # try:
-        requirement.key.delete()
-        #     self.response.status_int = 200
-        #     self.response.status_message = "Requirement Deleted Successfully"
-        # except:
-        #     self.response.status_int = 500
-        #     self.response.status_message = traceback.format_exception()
+    def delete(self, requirement_id):
+        requirement = Requirements.query(Requirements.req_id == int(cgi.escape(requirement_id))).get()
+        try:
+            requirement.key.delete()
+            self.response.status_int = 200
+            self.response.status_message = "Requirement Deleted Successfully"
+        except:
+            self.response.status_int = 500
+            self.response.status_message = traceback.format_exception()
 
     # def update(self, requirement_id):
     #     requirement = Requirements(Requirements.key == requirement_id)

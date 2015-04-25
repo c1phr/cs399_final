@@ -54,11 +54,8 @@
 function removeRequirement(element){
 $this = $(element);
  $.ajax({
-            method: "POST",
-            url: "/requirements/{{project_id}}",
-            data: {
-                id: $this.attr('data-id'),
-            }
+            method: "DELETE",
+            url: "/requirements/"+$this.attr('data-id'),
         })
         .success(function (msg) {
             $this.parent().remove();
