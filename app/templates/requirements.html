@@ -10,9 +10,12 @@
     </div>
     <div class="col-xs-12 text-center">
         <button class="btn-success btn" data-toggle="modal" data-target="#addRequirement"><span class="glyphicon-plus glyphicon"></span></button>
+         <hr/>
     </div>
 
+
     {%for requirement in requirements%}
+
         <div class="col-xs-4 text-center">
             <span class="glyphicon-pencil glyphicon non-edit"  onclick="editMode(this)" style="position:absolute; top: 0; right: -10px; cursor:pointer;"></span>
             <span class="glyphicon-trash glyphicon edit-requirement" data-id="{{requirement.key.urlsafe()}}" data-url-target="{{project_id}}" onclick="removeRequirement(this)" style="position:absolute; top: 0; right: -10px; cursor:pointer; display:none;"></span>
@@ -41,6 +44,9 @@
               <div class="col-xs-6 col-xs-offset-3">
                 <select class="form-control" name="parent" id="">
                     <option value="None" selected>Parent Requirement</option>
+                    {%for requirement in requirements%}
+                    <option value="{{requirement.key.urlsafe()}}" >{{requirement.req_title}}</option>
+                    {%endfor%}
                 </select>
                 <input class="form-control" style="margin-top:10px;" type="text" placeholder="Title"/>
                 <textarea oninput='changeText(this)' class="form-control" style="margin-top:10px;" name="descr" placeholder="Description" cols="30" rows="10"></textarea>

@@ -39,7 +39,8 @@ class RequirementsDashboard(BaseHandler):
             requirement.put()
         else:
             if parent != "None":
-                requirement = Requirements(project_id=project.key, req_title=title, req_desc=description, parent_id = parent)
+                requirement_id = ndb.Key(urlsafe=cgi.escape(self.request.get("parent")))
+                requirement = Requirements(project_id=project.key, req_title=title, req_desc=description, parent_id = requirement_id)
             else:
                 requirement = Requirements(project_id=project.key, req_title=title, req_desc=description, parent_id = None)
             try:
