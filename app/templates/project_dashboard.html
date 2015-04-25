@@ -7,7 +7,7 @@ td{
 {%endblock%}
 {%block content%}
 <div class="row">
-    <div class="col-xs-6 col-xs-offset-3 text-center">
+    <div class="col-xs-8 col-xs-offset-2 text-center">
         <h2>{{project_data.project_title}}</h2>
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="border-radius:20px;">
             README
@@ -21,6 +21,9 @@ td{
         <a type="button" class="btn btn-danger btn-sm"  style="border-radius:20px;" href="/issues/{{project_data.project_title}}" >
             Issue Management
         </a>
+<!--        <a type="button" class="btn btn-warning btn-sm"  style="border-radius:20px;" href="/requirements/{{project_data.project_id}}" >
+            Requirements
+        </a>-->
         <hr/>
         <h4>Language Statistics</h4>
         <div class="progress" style="margin-bottom:0;">
@@ -75,6 +78,15 @@ td{
     </div>
 </div>
 
+<div class="row">
+    <h2 class="text-center">Requirements</h2>
+    {%for requirement in requirements%}
+        <div class="col-xs-4">
+            <h3>{{requirement.req_title}}</h3>
+            <h4>{{requirement.req_desc}}</h4>
+        </div>
+    {%endfor%}
+</div>
 
 <div class="row Commits" style="display:none;">
     <div class="col-xs-8 col-xs-offset-2">

@@ -3,7 +3,7 @@ import webapp2, cgi
 import json
 from google.appengine.api import urlfetch
 from app.handlers.BaseHandler import BaseHandler
-from app.models.models import User, Project, Project_User
+from app.models.models import User, Project, Project_User,Requirements
 from jinja2 import Environment, PackageLoader
 
 env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.ext.loopcontrols'])
@@ -69,10 +69,12 @@ class ProjectDashboard(BaseHandler):
                 team_member = User.query(User.key == member.user_id).get()
                 team_members.append(team_member)
 
+        requirements = Requirements.query(Requirements.project_id == project_data.key).fetch()
+
         self.response.write(template.render(name="Projects", project_data=project_data,
                                             user=BaseHandler.user(self),
                                             commits=commit_contents, languages=language_contents, total=total,
-                                            readme=readme_contents, open_issue=open_issue, team=team_members))
+                                            readme=readme_contents, open_issue=open_issue, team=team_members, requirements = requirements))
 
 
 class ManageTeam(BaseHandler):
