@@ -30,7 +30,10 @@ class TaskDashboard(BaseHandler):
 
         task.task_title = title
         task.task_desc = description
-        task.requirement = requirement or None
+        if requirement:
+            task.requirement = ndb.Key(urlsafe=requirement)
+        else:
+            task.requirement = None
         task.open = task_status or True
 
         try:
