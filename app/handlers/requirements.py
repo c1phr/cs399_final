@@ -12,9 +12,10 @@ env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.
 # Warning, the methods in this class are untested!
 class RequirementsDashboard(BaseHandler):
     def get(self, project_id):
-        requirements = Requirements.query(Requirements.project_id == project_id)
+        project = Project.query(Project.project_id == int(project_id)).get()
+        requirements = Requirements.query(Requirements.project_id == project.key).fetch()
         # This can be changed as we create the template for requirements, leaving it here for testing
-        return json.dumps(requirements)
+        self.response.out.write(requirements)
 
     def put(self, project_id):
         parent = cgi.escape(self.request.get("parent"))
