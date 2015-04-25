@@ -11,7 +11,7 @@
         $this = $(element);
         $.ajax({
             method: "PUT",
-            url: "/requirements/"+$this.attr('data-url-target'),
+            url: "/requirements/" + $this.attr('data-url-target'),
             data: {
                 title: $this.siblings('input.edit-requirement').val(),
                 description: $this.siblings('textarea.edit-requirement').text(),
@@ -33,7 +33,7 @@
         $this = $(element);
         $.ajax({
             method: "PUT",
-            url: "/requirements/"+$this.attr('data-url-target'),
+            url: "/requirements/" + $this.attr('data-url-target'),
             data: {
                 title: $this.siblings('input').val(),
                 description: $this.siblings('textarea').text(),
@@ -42,27 +42,27 @@
                 method: "Add"
             }
         })
-        .success(function (msg) {
+            .success(function (msg) {
             $('#addRequirement').modal('hide')
         })
 
     }
 
 
-function removeRequirement(element){
-$this = $(element);
- $.ajax({
+    function removeRequirement(element) {
+        $this = $(element);
+        $.ajax({
             method: "PUT",
-            url: "/requirements/"+$this.attr('data-url-target'),
+            url: "/requirements/" + $this.attr('data-url-target'),
             data: {
                 id: $this.attr('data-id'),
                 method: "delete"
             }
         })
-        .success(function (msg) {
+            .success(function (msg) {
             $this.parent().remove();
         })
-}
+    }
 
     function changeText(element) {
         var $this = $(element);
