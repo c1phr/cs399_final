@@ -23,11 +23,12 @@ class Project(ndb.Model):
     project_owner = ndb.KeyProperty(kind="User")
 
 class Task(ndb.Model):
-    task_id = ndb.IntegerProperty(required=True)
     task_title = ndb.StringProperty()
-    req_id = ndb.KeyProperty(kind="Requirements", required=False)
-    assignee_id = ndb.KeyProperty(kind="User")
+    requirement = ndb.KeyProperty(kind="Requirements", required=False)
     task_desc = ndb.StringProperty()
+    assignee = ndb.KeyProperty(kind="User", required=True)
+    created = ndb.DateTimeProperty(auto_now_add=True)
+    open = ndb.BooleanProperty(default=True)
 
 class Project_User(ndb.Model):
     project_id = ndb.KeyProperty(kind="Project")
