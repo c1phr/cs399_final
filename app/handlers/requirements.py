@@ -16,20 +16,31 @@ class RequirementsDashboard(BaseHandler):
         project = Project.query(Project.project_id == int(project_id)).get()
         requirements = Requirements.query(Requirements.project_id == project.key).fetch()
         # This can be changed as we create the template for requirements, leaving it here for testing
-        self.response.write(template.render(name = "Requirements",user = BaseHandler.user(self), requirements = requirements))
+        self.response.write(template.render(name = "Requirements",user = BaseHandler.user(self), requirements = requirements, project_id = project_id))
 
     def put(self, project_id):
+        project = Project.query(Project.project_id == int(project_id)).get()
         parent = cgi.escape(self.request.get("parent"))
+        id = int(cgi.escape(self.request.get("id")))
         description = cgi.escape(self.request.get("description"))
         title = cgi.escape(self.request.get("title"))
-        requirement = Requirements(project_id=int(project_id), req_title=title, req_desc=description, parent_id=parent)
-        try:
+        method = cgi.escape(self.request.get("method"))
+        if method == "update":
+            requirement = Requirements.query(Requirements.req_id == id ).get()
+            requirement.req_title = title
+            requirement.req_desc = description
+            if parent != "None":
+                requirement.parent_id = parent
             requirement.put()
-            self.response.status_int = 200
-            self.response.status_message = "Requirement Saved Successfully"
-        except:
-            self.response.status_int = 500
-            self.response.status_message = traceback.format_exception()
+        else:
+            requirement = Requirements(project_id=project.key, req_title=title, req_desc=description)
+            try:
+                requirement.put()
+                self.response.status_int = 200
+                self.response.status_message = "Requirement Saved Successfully"
+            except:
+                self.response.status_int = 500
+                self.response.status_message = traceback.format_exception()
 
     def delete(self, requirement_id):
         requirement = Requirements(Requirements.key == requirement_id)
@@ -41,18 +52,18 @@ class RequirementsDashboard(BaseHandler):
             self.response.status_int = 500
             self.response.status_message = traceback.format_exception()
 
-    def update(self, requirement_id):
-        requirement = Requirements(Requirements.key == requirement_id)
-        parent = cgi.escape(self.request.get("parent"))
-        description = cgi.escape(self.request.get("description"))
-        title = cgi.escape(self.request.get("title"))
-        requirement.parent_id = parent
-        requirement.req_desc = description
-        requirement.req_title = title
-        try:
-            requirement.put()
-            self.response.status_int = 200
-            self.response.status_message = "Requirement Updated Successfully"
-        except:
-            self.response.status_int = 500
-            self.response.status_message = traceback.format_exception()
+    # def update(self, requirement_id):
+    #     requirement = Requirements(Requirements.key == requirement_id)
+    #     parent = cgi.escape(self.request.get("parent"))
+    #     description = cgi.escape(self.request.get("description"))
+    #     title = cgi.escape(self.request.get("title"))
+    #     requirement.parent_id = parent
+    #     requirement.req_desc = description
+    #     requirement.req_title = title
+    #     try:
+    #         requirement.put()
+    #         self.response.status_int = 200
+    #         self.response.status_message = "Requirement Updated Successfully"
+    #     except:
+    #         self.response.status_int = 500
+    #         self.response.status_message = traceback.format_exception()
