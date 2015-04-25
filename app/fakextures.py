@@ -38,7 +38,7 @@ class Fakextures():
         ]
         ndb.put_multi(users)
 
-        print("Users installed")
+        print "Users installed"
 
     @staticmethod
     def install_projects():
@@ -46,7 +46,7 @@ class Fakextures():
                           project_owner=User.query(User.user_id == "c1phr").get(use_cache=False).key)
         project.put()
 
-        print("Projects installed")
+        print "Projects installed"
 
     @staticmethod
     def install_user_projects():
@@ -55,7 +55,7 @@ class Fakextures():
             project_user = Project_User(project_id=project, user_id=user)
             project_user.put()
 
-        print("User_Project Relations Installed")
+        print "User_Project Relations Installed"
 
     @staticmethod
     def install_requirements():
