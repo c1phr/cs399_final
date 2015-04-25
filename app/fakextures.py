@@ -70,7 +70,8 @@ class Fakextures():
 
     @staticmethod
     def install_tasks():
-        task = Task(task_title = "Transfer issue into task", requirement = ndb.Key("Requirements", "ahJkZXZ-Z2l0LW1hbmFnZW1lbnRyGQsSDFJlcXVpcmVtZW50cxiAgICAgKDwCgw"),
+        requirement = Requirements.query().fetch(1, keys_only=True)
+        task = Task(task_title = "Transfer issue into task", requirement = requirement[0],
                                    task_desc= "Build something cool", assignee = User.query(User.user_id == "dukeayers").get(use_cache=False).key)
         task.put()
         print "Requirements Installed"
