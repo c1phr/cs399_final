@@ -17,6 +17,8 @@ class Fakextures():
             Fakextures.install_user_projects()
         if Requirements.query().count() == 0:
             Fakextures.install_requirements()
+        if Task.query().count() == 0:
+            Fakextures.install_tasks()
     @staticmethod
     def clear_datastore():
         # Remember to delete in order that foreign keys agree with to avoid errors
@@ -63,4 +65,12 @@ class Fakextures():
         requirement = Requirements(req_title = "Github Issue Tracking System", req_desc = "Building a system to track the issues from Github and potentially convert them to requirements.",
                                    project_id=Project.query(Project.project_id ==31822394).get(use_cache=False).key)
         requirement.put()
+        print "Requirements Installed"
+
+
+    @staticmethod
+    def install_tasks():
+        task = Task(task_title = "Transfer issue into task", requirement = ndb.Key("Requirements", "ahJkZXZ-Z2l0LW1hbmFnZW1lbnRyGQsSDFJlcXVpcmVtZW50cxiAgICAgKDwCgw"),
+                                   task_desc= "Build something cool", assignee = User.query(User.user_id == "dukeayers").get(use_cache=False).key)
+        task.put()
         print "Requirements Installed"
