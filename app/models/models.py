@@ -10,11 +10,11 @@ class User(ndb.Model):
     gravatar_url = ndb.StringProperty()
 
 class Requirements(ndb.Model):
-    req_id = ndb.IntegerProperty(required=True)
     parent_id = ndb.KeyProperty(kind="Requirements", required=False)
     req_title = ndb.TextProperty()
     req_desc = ndb.TextProperty()
     project_id = ndb.KeyProperty(kind="Project")
+    active = ndb.BooleanProperty(default=True)
 
 class Project(ndb.Model):
     project_id = ndb.IntegerProperty(required=True)

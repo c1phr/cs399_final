@@ -60,7 +60,7 @@ class Fakextures():
 
     @staticmethod
     def install_requirements():
-        requirement = Requirements(req_id = 1, req_title = "Github Issue Tracking System", req_desc = "Building a system to track the issues from Github and potentially convert them to requirements.",
+        requirement = Requirements(req_title = "Github Issue Tracking System", req_desc = "Building a system to track the issues from Github and potentially convert them to requirements.",
                                    project_id=Project.query(Project.project_id ==31822394).get(use_cache=False).key)
         requirement.put()
         print "Requirements Installed"
