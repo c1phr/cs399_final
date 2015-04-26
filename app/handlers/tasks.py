@@ -53,7 +53,12 @@ class TaskDashboard(BaseHandler):
         except TypeError: # Got here but the parameter wasn't a requirement key
             self.redirect('/alltasks/' + requirement)
         tasks = Task.query(Task.requirement == new_req.key).fetch()
-        self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks))
+        for task in tasks:
+            user_object = task.assignee
+            current_user = User.query(User.key == user_object).get()
+            task.user = current_user.user_id
+        project = Project.query(Project.key == new_req.project_id).get()
+        self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks, project_data = project))
 
     def put(self):
         requirement = cgi.escape(self.request.get("requirement"))

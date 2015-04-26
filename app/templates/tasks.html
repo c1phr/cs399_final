@@ -4,13 +4,26 @@
 
 {%endblock%}
 {%block content%}
-<div class="row">
+<div class="row" style="margin-top:30px;">
     <div class="col-xs-12">
-        {%for task in tasks%}
-            <h2>{{task.task_title}}</h2>
-            <h3>{{task.task_desc}}</h3>
-        {%endfor%}
+        <a href="/requirements/{{project_data.project_id}}" class="btn-danger btn pull-left"><span class="glyphicon-arrow-left glyphicon"></span> Back to Requirement</a>
     </div>
+</div>
+<div class="row" style="margin-top:30px;">
+
+        {%for task in tasks%}
+    <div class="col-xs-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>{{task.task_title}}</h3>
+                </div>
+                <div class="panel-body">
+                    <h4>{{task.task_desc}}</h4>
+                    <h5>Assigned to: {{task.user}}</h5>
+                </div>
+            </div>
+    </div>
+        {%endfor%}
 </div>
 {%endblock%}
 {%block JS%}
