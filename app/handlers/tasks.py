@@ -45,7 +45,10 @@ class IndividualTask(BaseHandler):
 class TaskDashboard(BaseHandler):
     def get(self, requirement):
         template = env.get_template("tasks.html")
-        new_req = ndb.Key(urlsafe=cgi.escape(requirement)).get()
+        try:
+            new_req = ndb.Key(urlsafe=cgi.escape(requirement)).get()
+        except TypeError: # Got here but the parameter wasn't a requirement key
+            self.redirect('/alltasks/' + requirement)
         tasks = Task.query(Task.requirement == new_req.key).fetch()
         self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks))
 
