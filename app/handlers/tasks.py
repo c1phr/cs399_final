@@ -14,7 +14,10 @@ env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.
 class IndividualTask(BaseHandler):
     def get(self, user_key):
         template = env.get_template("tasks.html")
-        tasks = Task.query(Task.assignee == user_key or self.user().key).fetch()
+        try:
+            tasks = Task.query(Task.assignee == user_key or self.user().key).fetch()
+        except TypeError:
+            tasks = Task.query(Task.assignee == self.user().key).fetch()
         self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks))
 
     def put(self):
