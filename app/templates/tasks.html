@@ -4,7 +4,14 @@
 
 {%endblock%}
 {%block content%}
-
+<div class="row">
+    <div class="col-xs-12">
+        {%for task in tasks%}
+            <h2>{{task.task_title}}</h2>
+            <h3>{{task.task_desc}}</h3>
+        {%endfor%}
+    </div>
+</div>
 {%endblock%}
 {%block JS%}
 <script src="/js/tasks.js"></script>

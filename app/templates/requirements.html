@@ -25,6 +25,7 @@
             <button type="button" class="btn-default btn edit-requirement" onclick="editMode(this)" style="margin-top:10px;display:none;">Cancel</button>
             <h3 class="non-edit title">{{requirement.req_title}}</h3>
             <h4 class="non-edit desc">{{requirement.req_desc}}</h4>
+            <a href="/tasks/{{requirement.key.urlsafe()}}">tasks</a>
         </div>
     {%endfor%}
 </div>
