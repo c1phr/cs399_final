@@ -22,7 +22,7 @@ function updateTask(element){
             title: $this.siblings('input').val(),
             description: $this.siblings('textarea').text(),
             assignee: $this.siblings('#assigneeUpdate').val(),
-            task_status: $this.siblings('#statusUpdate').val(),
+            open: $this.siblings('#statusUpdate').val(),
             task_key: $this.attr('data-task-key')
         }
     })

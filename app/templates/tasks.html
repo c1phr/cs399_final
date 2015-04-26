@@ -42,7 +42,6 @@
             <textarea oninput='changeText(this)' class="form-control" name="desc" id="" cols="30" rows="10" style="margin-top:10px;">{{task.task_desc}}</textarea>
 
             <button class="btn-success btn" style="margin-top:10px;" data-requirement="{{requirement.key.urlsafe()}}" data-task-key="{{task.key.urlsafe()}}" onclick="updateTask(this)">Update</button>
-            <button class="btn-danger btn" style="margin-top:10px;">Delete</button>
             <button class="btn-default btn" style="margin-top:10px;" onclick="editMode(this)">Cancel</button>
 
         </div>

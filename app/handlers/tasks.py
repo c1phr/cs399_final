@@ -84,7 +84,11 @@ class TaskDashboard(BaseHandler):
             task.requirement = ndb.Key(urlsafe=requirement)
         else:
             task.requirement = None
-        task.open = task_status or True
+
+        if task_status == "False":
+            task.open = False
+        else:
+            task.open = True
 
         try:
             task.put()
