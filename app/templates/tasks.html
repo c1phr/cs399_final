@@ -59,14 +59,10 @@
       <div class="modal-body">
       <div class="row">
       <div class="col-xs-6 col-xs-offset-3">
-        <select name="assigneed" id="assigneeUpdate" class="form-control" style="margin-top:10px;">
+        <select name="assigneed" id="assigneeNew" class="form-control" style="margin-top:10px;">
             {%for user in users%}
                 <option class="assignee-value" value="{{user.user_id.urlsafe()}}">{{user.username}}</option>
             {%endfor%}
-            </select>
-            <select  class="form-control" name="" id="statusUpdate" style="margin-top:10px;">
-                <option value="True">Open</option>
-                <option value="False">Closed</option>
             </select>
         <input type="text" class="form-control" style="margin-top:10px;" id="addTaskTitle" placeholder="Task Title"/>
         <textarea class="form-control" style="margin-top:10px;" name="task-desc" id="addTaskDesc" cols="30" rows="10"></textarea>
