@@ -57,6 +57,10 @@ class TaskDashboard(BaseHandler):
             user_object = task.assignee
             current_user = User.query(User.key == user_object).get()
             task.user = current_user.user_id
+            if task.open == True:
+                task.mode = ""
+            else:
+                task.mode = "hide"
 
         project = Project.query(Project.key == new_req.project_id).get()
         users = Project_User.query(Project_User.project_id == project.key).fetch()

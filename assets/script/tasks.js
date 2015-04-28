@@ -54,3 +54,15 @@ function addTask(element){
             $('#assigneeNew').val("");
         })
 }
+
+$('#TaskToggle').click(function(){
+
+    if($(this).text() === "View Closed Tasks")
+        $(this).text("View Open Tasks");
+    else
+        $(this).text("View Closed Tasks");
+
+    $('.tasks').toggleClass('hide');
+
+
+})
