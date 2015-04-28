@@ -12,7 +12,7 @@ td{
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="border-radius:20px;">
             README
         </button>
-        <button type="button" class="btn btn-info btn-sm"  style="border-radius:20px;" onclick="window.open('https://github.com/{{user.user_id}}/{{project_data.project_title}}/issues/','_blank' )">
+        <button type="button" class="btn btn-info btn-sm"  style="border-radius:20px;" onclick="window.open('https://github.com/{{owner}}/{{project_data.project_title}}/issues/','_blank' )">
             {{open_issue}} Open Issues
         </button>
          <button type="button" class="btn btn-success btn-sm"  style="border-radius:20px;" onclick="$('.Commits').is(':hidden') ? $('.Commits').show() :$('.Commits').hide() ">
@@ -76,16 +76,6 @@ td{
             </table>
         </div>
     </div>
-</div>
-
-<div class="row">
-    <h2 class="text-center">Requirements</h2>
-    {%for requirement in requirements%}
-        <div class="col-xs-4">
-            <h3>{{requirement.req_title}}</h3>
-            <h4>{{requirement.req_desc}}</h4>
-        </div>
-    {%endfor%}
 </div>
 
 <div class="row Commits" style="display:none;">

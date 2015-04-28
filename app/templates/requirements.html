@@ -9,6 +9,7 @@
         <h2 class="text-center">Requirements</h2>
     </div>
     <div class="col-xs-12 text-center">
+        <a class="btn-danger btn" href="/project/{{project_id}}"><span class="glyhicon-arrow-left glyphicon"></span> Back to Project</a>
         <button class="btn-success btn" data-toggle="modal" data-target="#addRequirement"><span class="glyphicon-plus glyphicon"></span></button>
          <hr/>
     </div>
@@ -25,7 +26,7 @@
             <button type="button" class="btn-default btn edit-requirement" onclick="editMode(this)" style="margin-top:10px;display:none;">Cancel</button>
             <h3 class="non-edit title">{{requirement.req_title}}</h3>
             <h4 class="non-edit desc">{{requirement.req_desc}}</h4>
-            <a class="btn-primary btn" href="/tasks/{{requirement.key.urlsafe()}}">Associated Tasks</a>
+            <a class="non-edit btn-primary btn" href="/tasks/{{requirement.key.urlsafe()}}">Associated Tasks</a>
         </div>
     {%endfor%}
 </div>

@@ -72,7 +72,7 @@ class ProjectDashboard(BaseHandler):
         self.response.write(template.render(name="Projects", project_data=project_data,
                                             user=BaseHandler.user(self),
                                             commits=commit_contents, languages=language_contents, total=total,
-                                            readme=readme_contents, open_issue=open_issue, team=team_members))
+                                            readme=readme_contents, open_issue=open_issue, team=team_members, owner = project_owner.user_id))
 
 
 class ManageTeam(BaseHandler):

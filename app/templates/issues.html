@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-xs-12">
             <h3 class="text-center">{{project}} Issues</h3>
-     <button type="button" class="btn btn-success btn-sm center-block"  style="border-radius:20px;"  onclick="window.open('https://github.com/{{user.user_id}}/{{project}}/issues/new','_blank' )">
+     <button type="button" class="btn btn-success btn-sm center-block"  style="border-radius:20px;"  onclick="window.open('https://github.com/{{owner}}/{{project}}/issues/new','_blank' )">
             Add New Issue
     </button>
     <hr/>
@@ -46,9 +46,6 @@
                         <td>
 
                         </td>
-                        <!--<td>-->
-
-                        <!--</td>-->
                     </tr>
                 </thead>
                 <tbody>
@@ -91,9 +88,6 @@
                             <td>
                                 <button class="btn-primary btn btn-sm">Make Requirement</button>
                             </td>
-                            <!--<td>-->
-                                <!--<button class="btn-danger btn btn-sm closeOpenIssue" data-issue="{{issue.number}}" data-title="{{issue.title}}" data-body="{{issue.body}}" data-milestone="{{issue.milestone}}" data-assignee="{{issue.assignee}}">Close Issue</button>-->
-                            <!--</td>-->
                         </tr>
                     {%endfor%}
                 </tbody>
