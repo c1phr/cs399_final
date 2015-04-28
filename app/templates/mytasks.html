@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{%block title%}Testing Title{%endblock%}
+{%block styles%}
+
+{%endblock%}
+{%block content%}
+<div class="row" style="margin-top:30px;">
+    <div class="col-xs-12">
+        <button  data-toggle="modal" data-target="#taskModal" class="btn-success btn" style="margin-left:5px;">
+            <span class="glyphicon-plus glyphicon"></span>
+        </button>
+        <button class="btn-primary btn" id="TaskToggle">View Closed Tasks</button>
+    </div>
+</div>
+<div class="row" style="margin-top:30px;">
+
+        {%for task in tasks%}
+    <div class="col-xs-4 tasks {{task.mode}}">
+            <div class="panel panel-default non-edit">
+                <div class="panel-heading text-center">
+                    <span class="glyphicon-pencil glyphicon" onclick="editMode(this);" style="position: absolute; top: 5px; right:20px;"></span>
+                    <h3>{{task.task_title}}</h3>
+                </div>
+                <div class="panel-body">
+                    <h4>{{task.task_desc}}</h4>
+                    <h5>Assigned to: <span class="user-assigned">{{task.user}}</span></h5>
+                </div>
+            </div>
+        <div class="edit-mode" style="display:none;">
+            <select name="assigneed" id="assigneeUpdate" class="form-control" style="margin-top:10px;">
+                <option class="assignee-value" value="{{task.assignee.urlsafe()}}" >{{task.assignee.user_id}}</option>
+                {%for user in users%}
+                    <option class="assignee-value" value="{{user.user_id.urlsafe()}}">{{user.username}}</option>
+                {%endfor%}
+            </select>
+            <select class="form-control" name="" id="statusUpdate" style="margin-top:10px;">
+                <option value="True">Open</option>
+                <option value="False">Closed</option>
+            </select>
+            <input class="form-control" type="text" value="{{task.task_title}}" style="margin-top:10px;"/>
+            <textarea oninput='changeText(this)' class="form-control" name="desc" id="" cols="30" rows="10" style="margin-top:10px;">{{task.task_desc}}</textarea>
+
+            {# <button class="btn-success btn" style="margin-top:10px;" data-requirement="{{requirement.key.urlsafe()}}" data-task-key="{{task.key.urlsafe()}}" onclick="updateTask(this)">Update</button> #}
+            <button class="btn-default btn" style="margin-top:10px;" onclick="editMode(this)">Cancel</button>
+
+        </div>
+
+    </div>
+        {%endfor%}
+</div>
+
+<div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+      <div class="row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <select name="assigneed" id="assigneeNew" class="form-control" style="margin-top:10px;">
+            {%for user in users%}
+                <option class="assignee-value" value="{{user.user_id.urlsafe()}}">{{user.username}}</option>
+            {%endfor%}
+            </select>
+        <input type="text" class="form-control" style="margin-top:10px;" id="addTaskTitle" placeholder="Task Title"/>
+        <textarea class="form-control" style="margin-top:10px;" name="task-desc" id="addTaskDesc" cols="30" rows="10"></textarea>
+
+        {# <button type="button" style="margin-top:10px;" data-requirement="{{requirement.key.urlsafe()}}" onclick="addTask(this);" class="btn btn-success col-xs-12">Add</button> #}
+        </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock%}
+{%block JS%}
+<script src="/js/tasks.js"></script>
+{%endblock%}

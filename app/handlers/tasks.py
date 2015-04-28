@@ -3,7 +3,7 @@ import traceback
 from google.appengine.ext import ndb
 import webapp2, cgi
 import json
-from google.appengine.api import urlfetch
+from google.appengine.api import datastore_errors
 from app.handlers.BaseHandler import BaseHandler
 from app.models.models import User, Project, Requirements, Task, Project_User
 from jinja2 import Environment, PackageLoader
@@ -13,10 +13,10 @@ env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.
 
 class IndividualTask(BaseHandler):
     def get(self, user_key):
-        template = env.get_template("tasks.html")
+        template = env.get_template("mytasks.html")
         try:
             tasks = Task.query(Task.assignee == user_key or self.user().key).fetch()
-        except TypeError:
+        except datastore_errors.BadValueError:
             tasks = Task.query(Task.assignee == self.user().key).fetch()
         self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks))
 
