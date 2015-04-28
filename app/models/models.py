@@ -34,3 +34,12 @@ class Project_User(ndb.Model):
     project_id = ndb.KeyProperty(kind="Project")
     user_id = ndb.KeyProperty(kind="User")
     is_owner = ndb.BooleanProperty(default=False)
+
+class Commits(ndb.Model):
+    sha = ndb.StringProperty()
+    title = ndb.StringProperty()
+    message = ndb.StringProperty()
+    lines_added = ndb.IntegerProperty(default=0)
+    lines_removed = ndb.IntegerProperty(default=0)
+    author = ndb.KeyProperty(kind="User")
+    project = ndb.KeyProperty(kind="Project")
