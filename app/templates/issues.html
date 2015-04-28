@@ -7,15 +7,19 @@
 <div class="row">
     <div class="col-xs-12">
             <h3 class="text-center">{{project}} Issues</h3>
-     <button type="button" class="btn btn-success btn-sm center-block"  style="border-radius:20px;"  onclick="window.open('https://github.com/{{owner}}/{{project}}/issues/new','_blank' )">
-            Add New Issue
-    </button>
-    <hr/>
+
+
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-4 col-xs-offset-4 center-block">
-
+    <div class="col-xs-4 col-xs-offset-4 text-center">
+     <button type="button" class="btn btn-success btn-sm"  style="border-radius:20px;"  onclick="window.open('https://github.com/{{owner}}/{{project}}/issues/new','_blank' )">
+            Add New Issue
+    </button>
+     <a class="btn btn-danger btn-sm"  style="border-radius:20px;"  href="/project/{{project}}">
+            Back to Project
+    </a>
+        <hr/>
     </div>
 </div>
 <div class="row">
