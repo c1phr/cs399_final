@@ -5,7 +5,7 @@ import webapp2, cgi
 import json
 from google.appengine.api import datastore_errors
 from app.handlers.BaseHandler import BaseHandler
-from app.models.models import User, Project, Requirements, Task, Project_User
+from app.models.models import User, Project, Requirements, Task, Project_User, Events, Event_LK
 from jinja2 import Environment, PackageLoader
 
 env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.ext.loopcontrols'])
@@ -78,14 +78,23 @@ class TaskDashboard(BaseHandler):
 
         if self.request.get("task_key"):  # Update
             task = ndb.Key(urlsafe=cgi.escape(self.request.get("task_key"))).get()
+            event_type_code = 1
+            description_body = " set the status of the task " + task.task_title + " to " + "closed" if task_status == "False" else "open"
         else:  # Create
             task = Task()
+            event_type_code = 2
+            description_body = " created the task: " + title
 
         task.task_title = title
         task.task_desc = description
         task.assignee = assignee.key
         if requirement:
             task.requirement = ndb.Key(urlsafe=requirement)
+            event = Events(project=task.requirement.get().project_id,
+                           user=self.user().key,
+                           event_type=Event_LK.query(Event_LK.event_code == event_type_code).get().key,
+                           description=self.user().user_id + description_body,
+                           event_relation_key=None)
         else:
             task.requirement = None
 
@@ -96,6 +105,7 @@ class TaskDashboard(BaseHandler):
 
         try:
             task.put()
+            event.put()
             self.response.status_int = 200
             self.response.status_message = "Task Saved Successfully"
         except:
