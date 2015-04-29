@@ -5,7 +5,7 @@ import webapp2, cgi
 import json
 from google.appengine.api import urlfetch
 from app.handlers.BaseHandler import BaseHandler
-from app.models.models import User, Project, Requirements
+from app.models.models import User, Project, Requirements, Events, Event_LK
 from jinja2 import Environment, PackageLoader
 
 env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.ext.loopcontrols'])
@@ -37,6 +37,7 @@ class RequirementsDashboard(BaseHandler):
             requirement = requirement_id.get()
             requirement.active = False
             requirement.put()
+
         else:
             if parent != "None":
                 requirement_id = ndb.Key(urlsafe=cgi.escape(self.request.get("parent")))
@@ -47,7 +48,7 @@ class RequirementsDashboard(BaseHandler):
                 requirement.put()
                 self.response.status_int = 200
                 self.response.status_message = "Requirement Saved Successfully"
+                event = Events(user = BaseHandler.user(self).key, project = project.key, event_type = Event_LK.query(Event_LK.event_code == 3).get().key, description = title + " " + description, event_relation_key = None).put()
             except:
-                self.response.status_int = 500
-                self.response.status_message = traceback.format_exception()
-
+                 self.response.status_int = 500
+                 self.response.status_message = traceback.format_exception()

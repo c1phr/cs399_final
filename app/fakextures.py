@@ -65,9 +65,12 @@ class Fakextures():
 
     @staticmethod
     def install_requirements():
-        requirement = Requirements(req_title = "Github Issue Tracking System", req_desc = "Building a system to track the issues from Github and potentially convert them to requirements.",
+        title = "Github Issue Tracking System"
+        descr = "Building a system to track the issues from Github and potentially convert them to requirements."
+        requirement = Requirements(req_title = title, req_desc = descr,
                                    project_id=Project.query(Project.project_id ==31822394).get(use_cache=False).key)
         requirement.put()
+        event = Events(user = User.query(User.user_id == "dukeayers").get(use_cache=False).key, project = Project.query(Project.project_id ==31822394).get(use_cache=False).key,  event_type = Event_LK.query(Event_LK.event_code == 3).get().key, description = title + " " + descr, event_relation_key = None).put()
         print "Requirements Installed"
 
 
@@ -77,6 +80,7 @@ class Fakextures():
         task = Task(task_title = "Transfer issue into task", requirement = requirement[0],
                                    task_desc= "Build something cool", assignee = User.query(User.user_id == "dukeayers").get(use_cache=False).key)
         task.put()
+
         print "Requirements Installed"
 
     @staticmethod
