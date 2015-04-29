@@ -21,7 +21,7 @@ import os, sys, webapp2, random
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib"))
 
 # Do not move this line above the previous sys.path.append()
-from app.handlers import dashboard, authentication, user, project, issue, requirements, tasks
+from app.handlers import dashboard, authentication, user, project, issue, requirements, tasks, report
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': '02681a3c3e3ea7f6dc7776b6313f3fc4',
@@ -44,6 +44,7 @@ app = webapp2.WSGIApplication([
     ('/CloseIssue', issue.CloseIssue),
     ('/tasks/(.*)', tasks.TaskDashboard),
     ('/mytasks/(.*)', tasks.IndividualTask),
+    ('/report', report.Home),
     ('/', dashboard.MainHandler)
 ], debug=True, config=config)
 
