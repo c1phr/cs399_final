@@ -3,7 +3,7 @@ import webapp2, cgi
 import json
 from google.appengine.api import urlfetch
 from app.handlers.BaseHandler import BaseHandler
-from app.models.models import User, Project, Project_User,Requirements
+from app.models.models import User, Project, Project_User,Requirements, Events, Event_LK
 from jinja2 import Environment, PackageLoader
 
 env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.ext.loopcontrols'])
@@ -80,17 +80,26 @@ class ManageTeam(BaseHandler):
         project_id = int(cgi.escape(self.request.get('project_id')))
         username = cgi.escape(self.request.get('username'))
         method = cgi.escape(self.request.get('method'))
+        project = Project.query(Project.project_id == project_id).get()
         if method == "delete":
             old_user = User.query(User.user_id == username).get()
-            project = Project.query(Project.project_id == project_id).get()
             old_member = Project_User.query(
                 Project_User.project_id == project.key and Project_User.user_id == old_user.key).get()
             old_member.key.delete()
+            event_message = username + " was deleted from " + project.project_title + " by " + self.user().user_id
+
         elif method == "put":
             new_user = User.query(User.user_id == username).get()
-            project = Project.query(Project.project_id == project_id).get()
             new_member = Project_User(project_id=project.key, user_id=new_user.key)
             new_member.put()
+            event_message = username + " was added to " + project.project_title + " by " + self.user().user_id
+
+        event = Events(project=project.key,
+                           user=self.user().key,
+                           event_type=Event_LK.query(Event_LK.event_code == 5).get().key,
+                           description=event_message,
+                           event_relation_key=None)
+        event.put()
 
 
 class Loaded(BaseHandler):
