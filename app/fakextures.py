@@ -19,6 +19,9 @@ class Fakextures():
             Fakextures.install_requirements()
         if Task.query().count() == 0:
             Fakextures.install_tasks()
+        if Event_LK.query().count() == 0:
+            Fakextures.install_event_lk()
+
     @staticmethod
     def clear_datastore():
         # Remember to delete in order that foreign keys agree with to avoid errors
@@ -75,3 +78,16 @@ class Fakextures():
                                    task_desc= "Build something cool", assignee = User.query(User.user_id == "dukeayers").get(use_cache=False).key)
         task.put()
         print "Requirements Installed"
+
+    @staticmethod
+    def install_event_lk():
+        event_lks = [
+            Event_LK(event_code=1, event_type="Task Status"),
+            Event_LK(event_code=2, event_type="Task Created"),
+            Event_LK(event_code=3, event_type="Requirement Created"),
+            Event_LK(event_code=4, event_type="Commit"),
+            Event_LK(event_code=5, event_type="Project Team Changed")
+        ]
+        ndb.put_multi(event_lks)
+
+        print "Event LK Installed"
