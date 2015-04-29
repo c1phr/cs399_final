@@ -5,6 +5,13 @@
 {%endblock%}
 {%block content%}
 <div class="row">
+    <div class="col-xs-4">
+            <h4>Reporting Tools</h4>
+    <a href="/report?project=&user={{user.key.urlsafe()}}&number=">Reports</a>
+    </div>
+
+</div>
+<div class="row">
     <h4 class="text-center">ISSUES</h4>
     <div class="col-xs-offset-3 col-xs-4">
         {% for issue in issues %}
@@ -28,4 +35,5 @@
 </div>
 {%endblock%}
 {%block JS%}
+
 {%endblock%}

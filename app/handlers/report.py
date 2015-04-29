@@ -11,17 +11,17 @@ from jinja2 import Environment, PackageLoader
 env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.ext.loopcontrols'])
 
 
-class Home(BaseHandler):
-    def get(self):
+class UserReport(BaseHandler):
+    def get(self, user):
         template = env.get_template("report.html")
-        project_id = self.request.GET['project']
-        user_id = self.request.GET['user']
-        num_events = self.request.GET['number'] or 10
-        if project_id:
-            project_id = ndb.Key(urlsafe=cgi.escape(project_id))
-            return_events = Events.query(project=project_id).fetch(num_events)
-        elif user_id:
-            user_id = ndb.Key(urlsafe=cgi.esacpe(user_id))
-            return_events = Events.query(user=user_id).fetch(num_events)
+        user_id = User.query(User.user_id==user).get()
+        return_events = Events.query(Events.user == user_id.key).fetch()
+        self.response.write(template.render(name="Issues", user=BaseHandler.user(self), events=return_events))
+
+class ProjectReport(BaseHandler):
+    def get(self, project):
+        template = env.get_template("report.html")
+        project_id = Project.query(Project.project_id== int(project)).get()
+        return_events = Events.query(Events.project == project_id.key).fetch()
         self.response.write(template.render(name="Issues", user=BaseHandler.user(self), events=return_events))
 
