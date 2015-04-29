@@ -46,10 +46,11 @@ class Commits(ndb.Model):
 
 class Events(ndb.Model):
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
+    project = ndb.KeyProperty(kind="Project")
     user = ndb.KeyProperty(kind="User")
     event_type = ndb.KeyProperty(kind="Event_LK")
     description = ndb.StringProperty()
-    event_relation_key = ndb.KeyProperty() # Experimenting with an indefinite key property
+    event_relation_key = ndb.KeyProperty(required=False) # Experimenting with an indefinite key property
 
 class Event_LK(ndb.Model):
     event_code = ndb.IntegerProperty(required=True)
