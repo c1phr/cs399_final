@@ -23,5 +23,6 @@ class ProjectReport(BaseHandler):
         template = env.get_template("report.html")
         project_id = Project.query(Project.project_id== int(project)).get()
         return_events = Events.query(Events.project == project_id.key).fetch()
+        print json.dumps(self.serialize_model(return_events)) # Don't leave me here, I'm for example only!
         self.response.write(template.render(name="Issues", user=BaseHandler.user(self), events=return_events))
 

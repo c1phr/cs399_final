@@ -1,3 +1,6 @@
+from datetime import datetime
+import google
+from google.appengine.ext import ndb
 import webapp2
 from webapp2_extras import sessions
 from app.fakextures import Fakextures
@@ -65,3 +68,25 @@ class BaseHandler(webapp2.RequestHandler):
     def user(self):
         user = User.query(User.key == self.session.get("user")).get()
         return user
+
+    def serialize_model(self, model_object):
+        output = {}
+        serializable_types = (int, long, float, unicode, bool, dict, basestring, list)
+        if isinstance(model_object, list): # Object came from fetch
+            for obj in model_object:
+                return self.serialize_model(obj)
+        else:
+            model_dict = model_object.to_dict()
+            for key, value in model_dict.iteritems():
+                if isinstance(value, serializable_types):
+                    output[key] = value
+                elif isinstance(value, datetime):
+                    output[key] = value.strftime("%Y-%m-%d %H:%M")
+                elif isinstance(value, ndb.Key):
+                    output[key] = self.serialize_model(value.get())
+                elif not value:
+                    output[key] = "null"
+                else:
+                    raise NotImplementedError("Unsupported serialization of type: " + str(type(value)) + " at key: " + key)
+        return output
+
