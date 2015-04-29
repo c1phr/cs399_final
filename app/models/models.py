@@ -30,7 +30,7 @@ class Task(ndb.Model):
     created = ndb.DateTimeProperty(auto_now_add=True)
     open = ndb.BooleanProperty(default=True)
 
-class Task_Changes(ndb.Model):
+#class Task_Changes(ndb.Model):
 
 
 class Project_User(ndb.Model):
@@ -49,8 +49,8 @@ class Commits(ndb.Model):
 
 class Events(ndb.Model):
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
-    user = ndb.KeyProperty(type="User")
-    event_type = ndb.KeyProperty(type="Event_LK")
+    user = ndb.KeyProperty(kind="User")
+    event_type = ndb.KeyProperty(kind="Event_LK")
     description = ndb.StringProperty()
     event_relation_key = ndb.KeyProperty() # Experimenting with an indefinite key property
 
