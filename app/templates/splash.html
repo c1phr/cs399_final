@@ -1,12 +1,34 @@
 {% extends "base.html" %}
-{%block title%}Git Managed{%endblock%}
+{%block title%}Testing Title{%endblock%}
 {%block styles%}
-
 {%endblock%}
-{% block content %}
-<h1>Git Managed</h1>
-<p>This is the home of Git Managed, a new type of project management system that integrates with the version control system that you and your team is already using.</p>
-<p>Click <a href="/login">Sign In</a> to log in with your GitHub credentials and start tracking your team's productivity.</p>
-{% endblock %}
-{% block JS %}
-{% endblock %}
+
+{%block content%}
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-3 text-center">
+        <h3>All Projects</h3>
+        <hr/>
+        <h5>These are all of the projects you are currently contributing to.</h5>
+    </div>
+</div>
+
+<div class="row" style="margin-top:10px;">
+    <div class="col-xs-8 col-xs-offset-2">
+        {%for projects in project%}
+            <div class="col-xs-4">
+                <a class="btn-primary btn project_submit" data-project-desc="{{projects.description}}"  data-project-name="{{projects.name}}"  data-project-id="{{projects.id}}" style="margin-top: 10px; width: 100%;" href="#">
+                    {{projects.name}}
+                </a>
+            </div>
+        {%endfor %}
+    </div>
+</div>
+<div class="row text-center" style="margin-top:30px;">
+    <div class="alert alert-success project-success" style="display:none;" role="alert">Project Successfully Added!</div>
+
+</div>
+{%endblock%}
+
+{%block JS%}
+<script src="/js/project.js"></script>
+{%endblock%}

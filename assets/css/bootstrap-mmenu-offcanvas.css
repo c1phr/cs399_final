@@ -1,0 +1,89 @@
+/*
+ * Leave room for top navbar
+ */
+body {
+  padding-top: 50px;
+}
+
+/*
+ * Make on-canvas menu smaller
+ * If you want to change the width
+ * of the oncanvas menu then change
+ * all the 200px in this section.
+ */
+@media (min-width: 768px) {
+  nav.mm-menu:not( .mm-offcanvas ) {
+    max-width: 200px;
+  }
+  .mm-content-right {
+	padding-left: 200px;  
+  }
+  .mm-content-left {
+	padding-right: 200px;  
+  }
+}
+
+/*
+ * Navbar transformations
+*/
+.navbar-fixed-top {
+  transition: transform 0.4s ease;
+}
+
+html.mm-opening .navbar-fixed-top  {
+  -webkit-transform: translate(80%, 0);
+  transform: translate(80%, 0);
+}
+
+@media all and (max-width: 175px) {
+  html.mm-opening .navbar-fixed-top  {
+    -webkit-transform: translate(140px, 0);
+    transform: translate(140px, 0); 
+  } 
+}
+
+@media all and (min-width: 550px) {
+  html.mm-opening .navbar-fixed-top  {
+    -webkit-transform: translate(440px, 0);
+    transform: translate(440px, 0); 
+  } 
+}
+
+html.mm-right.mm-opening .navbar-fixed-top  {
+  -webkit-transform: translate(-80%, 0);
+  transform: translate(-80%, 0);
+}
+
+@media all and (max-width: 175px) {
+  html.mm-right.mm-opening .navbar-fixed-top  {
+    -webkit-transform: translate(-140px, 0);
+    transform: translate(-140px, 0); 
+  } 
+}
+
+@media all and (min-width: 550px) {
+  html.mm-right.mm-opening .navbar-fixed-top  {
+    -webkit-transform: translate(-440px, 0);
+    transform: translate(-440px, 0); 
+  } 
+}
+
+/*
+ * On-canvas submenu zoom effect
+ */
+.mm-menu.mm-horizontal.mm-zoom-panels:not( .mm-offcanvas ) > .mm-panel {
+  -webkit-transform: scale(1.5, 1.5) translateX(100%);
+  transform: scale(1.5, 1.5) translateX(100%);
+  -webkit-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transition-property: -webkit-transform, left;
+  transition-property: transform, left;
+}
+.mm-menu.mm-horizontal.mm-zoom-panels:not( .mm-offcanvas ) > .mm-panel.mm-opened {
+  -webkit-transform: scale(1, 1) translateX(0%);
+  transform: scale(1, 1) translateX(0%);
+}
+.mm-menu.mm-horizontal.mm-zoom-panels:not( .mm-offcanvas ) > .mm-panel.mm-opened.mm-subopened {
+  -webkit-transform: scale(0.7, 0.7) translateX(-30%);
+  transform: scale(0.7, 0.7) translateX(-30%);
+}

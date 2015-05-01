@@ -3,7 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>{%block title%}{%endblock%}</title>
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="http://mmenu.frebsite.nl/mmenu/css/jquery.mmenu.all.css" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap-mmenu-offcanvas.css" />
+    <link type="text/css" rel="stylesheet" href="/css/dash.css" />
 </head>
 <style>
         #sidebar{
@@ -32,148 +35,81 @@
 </style>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 0;background-color:#337BB8;">
-    <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-      </button>
-        <a class="navbar-brand" href="/" style="color:white;">Git Managed</a>
+<div id="page">
+      <nav id="menu">
+        <ul>
+          <li><a href="/mytasks/"><span class="glyphicon glyphicon-flash"></span>My Tasks</a></li>
+          <li><a href="/project"><span class="glyphicon glyphicon-plane"></span>All Projects</a></li>
+          <li><a href="/loaded"><span class="glyphicon glyphicon-plane"></span>Loaded Projects</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-plane"></span>Reports</a></li>
+
+          <li>
+            <a href="#"><span class="glyphicon glyphicon-leaf"></span>Team Members</a>
+            <ul>
+              <li><a href="#">Duke</a></li>
+              <li><a href="#">Ryan</a></li>
+              <li><a href="#">Tory</a></li>
+              <li><a href="#">Chris</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#"><span class="glyphicon glyphicon-leaf"></span>Project Overview</a>
+            <ul>
+              <li><a href="/projectRequirements/">Requirements</a></li>
+              <li><a href="#">Details</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </nav>
+
+
+    <div class="row" style="background:#f8f8f8; color:#777; margin-left: 0; margin-right: 0; border: 1px solid #e7e7e7; margin-top:50px;">
+        <div  id="breadcrumbs">
+            <h4>{{name}}</h4>
+        </div>
+    </div>
+    <div class="mm-content-right container">
+
+        {% block content %}
+        {%endblock%}
+
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-          {% if user %}
-        <li><img src="{{user.gravatar_url}}" width='40px' height='40px' style="margin-top:5px; margin-bottom:5px;" class="img-circle" alt=""/></li>
-        <li class="dropdown">
-          <a href="#" style="color:white;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user.first_name}}<span class="caret"></span></a>
-          <ul class="dropdown-menu" style="color:#337BB8" role="menu">
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Info</a></li>
+    <!-- IMPORTANT: this tag must NOT be a <div> otherwise mmenu will wrap the navbar in the main page -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand hidden-xs"><strong>Git Managed</strong></a>
+          <a href="/" class="navbar-brand visible-xs pull-right"><strong>Git Managed</strong></a>
+          <div class="nav-toggle visible-xs">
+            <a href="#mobile-menu"></a>
+          </div>
+        </div>
+
+        <div class="collapse navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right hidden-xs">
+            {% if user %}
+            <li><a href="/user/{{user.user_id}}">Logged in as <strong>{{user.first_name}}</strong></a></li>
+            <li><img src="{{user.gravatar_url}}" width='40px' height='40px' style="margin-top:5px; margin-bottom:5px;" class="img-circle" alt=""/></li>
+            {% else %}
+            <li><a href="/login"><strong>Sign In</strong></a></li>
+            {% endif %}
           </ul>
-        </li>
-          {% else %}
-        <li><a href="/login" style="color:white;">Sign In</a></li>
-          {% endif %}
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-
-<aside id="sidebar" style="z-index:9999;">
-   <div class="sidebar-left">
-       {% if user %}
-   <h6 style="color:#777; margin-left: 0.5em;">MENU</h6>
-       <ul class="nav nav-pills nav-stacked">
-
-            <li role="presentation">
-                <button class="nav-button" data-toggle="collapse" data-target="#overview">
-                    <a class="navbar-item" href="/mytasks/" style="color:white;margin-left:1em;">
-                        <span class="glyphicon glyphicon-folder-open" style="margin-right: 10px;"></span>View Tasks</a>
-                </button>
-           </li>
-
-           <!-- expanding/collapsing Project Overview -->
-            <li role="presentation">
-                <button class="nav-button" data-toggle="collapse" data-target="#overview">
-                    <a class="navbar-item" href="#" style="color:white;margin-left:1em;">
-                        <span class="glyphicon glyphicon-picture" style="margin-right:10px;"></span>Project Overview</a>
-                </button>
-           </li>
-
-           <!-- sublist items -->
-           <div id="overview" class="collapse">
-            <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
-              <button class="nav-button">
-               <li role="presentation"><a class="navbar-item" href="/projectRequirements/" style="color:white;"> <span class="glyphicon glyphicon-folder-open" style="margin-right:10px;"></span>Requirements</a></li>
-              </button>
-           </ul>
-            <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
-              <button class="nav-button" data-toggle="collapse" data-target="#overview">
-               <li role="presentation"><a class="navbar-item" href="#" style="color:white;"> <span class="glyphicon glyphicon-folder-open" style="margin-right:10px;"></span>Details</a></li>
-              <button class="nav-button" data-toggle="collapse" data-target="#overview">
-           </ul>
-           </div>
-
-
-
-            <!-- expanding/collapsing Team -->
-            <li role="presentation">
-                <button class="nav-button" data-toggle="collapse" data-target="#team">
-                    <a class="navbar-item" href="#" style="color:white;margin-left:1em;">
-                        <span class="glyphicon glyphicon-user" style="margin-right:10px;"></span>Team Members</a>
-                </button>
-           </li>
-
-           <!-- sublist items -->
-           <div id="team" class="collapse">
-                <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
-                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
-                       <span class="glyphicon glyphicon-king" style="margin-right:10px;"></span>Ryn</a>
-                    </li>
-               </ul>
-                <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
-                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
-                       <span class="glyphicon glyphicon-thumbs-down" style="margin-right:10px;"></span>Dick</a>
-                    </li>
-               </ul>
-                <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
-                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
-                       <span class="glyphicon glyphicon-sunglasses" style="margin-right:10px;"></span>Chirs</a>
-                    </li>
-               </ul>
-                <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
-                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
-                       <span class="glyphicon glyphicon-baby-formula" style="margin-right:10px;"></span>Torrè</a>
-                    </li>
-               </ul>
-               <ul class="nav nav-pills nav-stacked" style="margin-left:1.5em">
-                   <li role="presentation"><a class="navbar-item" href="#" style="color:white;">
-                       <span class="glyphicon glyphicon-glass" style="margin-right:10px;"></span>doolAy</a>
-                    </li>
-               </ul>
-           </div>
-
-       <h6 style="color:#777;margin-left: 0.5em;">PROJECTS</h6>
-            <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" ><a href="/project" class="navbar-item" style="color:white;">All Projects</a></li>
-            </ul>
-            <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" ><a href="/loaded" class="navbar-item" style="color:white;">Loaded Projects</a></li>
-            </ul>
-       <h6 style="color:#777;margin-left: 0.5em;">TOOLS</h6>
-       <ul class="nav nav-pills nav-stacked">
-           <li role="presentation">
-               <button class="nav-button" data-toggle="collapse" data-target="#">
-                   <a class="navbar-item" href="#" style="color:white;margin-left:1em;">
-                       <span class="glyphicon glyphicon-folder-open" style="margin-right:10px;"></span> Reports</a>
-               </button>
-           </li>
-       </ul>
-   </ul>
-   </div>
-    {% endif %}
-</aside>
-<div class="row" style="background:#f8f8f8; color:#777; margin-left: 0; margin-right: 0; border: 1px solid #e7e7e7; margin-top:50px;">
-    <div  id="breadcrumbs">
-        <h4>{{name}}</h4>
-    </div>
+        </div>
+      </div>
+    </nav>
 </div>
-<div class="container topContainer" style="margin-bottom:50px;">
-    {% block content %}
-
-    {%endblock%}
-</div>
-
 
 <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+<script src="http://mmenu.frebsite.nl/mmenu/js/jquery.mmenu.min.all.js"></script>
+<script src="/js/nav.js"></script>
 <script src="/js/base.js"></script>
+
 {%block JS%}
 {%endblock%}
+
 </body>
 </html>
