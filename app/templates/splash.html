@@ -1,34 +1,20 @@
 {% extends "base.html" %}
 {%block title%}Testing Title{%endblock%}
 {%block styles%}
-{%endblock%}
 
+body{
+  background: url("/js/welcome.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+{%endblock%}
 {%block content%}
-<div class="row">
-    <div class="col-xs-6 col-xs-offset-3 text-center">
-        <h3>All Projects</h3>
-        <hr/>
-        <h5>These are all of the projects you are currently contributing to.</h5>
-    </div>
-</div>
-
-<div class="row" style="margin-top:10px;">
-    <div class="col-xs-8 col-xs-offset-2">
-        {%for projects in project%}
-            <div class="col-xs-4">
-                <a class="btn-primary btn project_submit" data-project-desc="{{projects.description}}"  data-project-name="{{projects.name}}"  data-project-id="{{projects.id}}" style="margin-top: 10px; width: 100%;" href="#">
-                    {{projects.name}}
-                </a>
-            </div>
-        {%endfor %}
-    </div>
-</div>
-<div class="row text-center" style="margin-top:30px;">
-    <div class="alert alert-success project-success" style="display:none;" role="alert">Project Successfully Added!</div>
-
-</div>
+    <body>
+    </body>
 {%endblock%}
-
 {%block JS%}
-<script src="/js/project.js"></script>
+
 {%endblock%}
