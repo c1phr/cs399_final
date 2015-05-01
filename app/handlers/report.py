@@ -22,13 +22,12 @@ class UserReport(BaseHandler):
         return_events =  Events.query(Events.user == user_id.key).fetch()
         for data in return_events:
             data.event = Event_LK.query(Event_LK.key == data.event_type).get().event_type
-        self.response.write(template.render(name="Overall Reporting", user=BaseHandler.user(self), report = return_events))
+        self.response.write(template.render(name="Individual Reporting", user=BaseHandler.user(self), report = return_events))
 
 class ProjectReport(BaseHandler):
     def get(self, project):
         template = env.get_template("report.html")
         project_id = Project.query(Project.project_id== int(project)).get()
         return_events = Events.query(Events.project == project_id.key).fetch()
-        #print json.dumps(self.serialize_model(return_events)) # Don't leave me here, I'm for example only!
-        self.response.write(template.render(name="Issues", user=BaseHandler.user(self), events=return_events))
+        self.response.write(template.render(name="Group Reporting", user=BaseHandler.user(self), events=return_events))
 

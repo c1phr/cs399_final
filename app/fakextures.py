@@ -72,7 +72,22 @@ class Fakextures():
         requirement = Requirements(req_title = title, req_desc = descr,
                                    project_id=Project.query(Project.project_id ==31822394).get(use_cache=False).key)
         requirement.put()
-        event = Events(user = User.query(User.user_id == "dukeayers").get(use_cache=False).key, project = Project.query(Project.project_id ==31822394).get(use_cache=False).key,  event_type = Event_LK.query(Event_LK.event_code == 3).get().key, description = title + " " + descr, event_relation_key = None).put()
+        event = Events(user = User.query(User.user_id == "dukeayers").get(use_cache=False).key, project = Project.query(Project.project_id ==31822394).get(use_cache=False).key,  event_type = Event_LK.query(Event_LK.event_code == 3).get().key, description = title + " - " + descr, event_relation_key = None).put()
+
+        title = "Reporting System Tools"
+        descr = "Find a way to use the reporting system to our advantage."
+        requirement = Requirements(req_title = title, req_desc = descr,
+                                   project_id=Project.query(Project.project_id ==31822394).get(use_cache=False).key)
+        requirement.put()
+        event = Events(user = User.query(User.user_id == "c1phr").get(use_cache=False).key, project = Project.query(Project.project_id ==31822394).get(use_cache=False).key,  event_type = Event_LK.query(Event_LK.event_code == 3).get().key, description = title + " - " + descr, event_relation_key = None).put()
+
+        title = "Appease the Web Dev Gods"
+        descr = "We might need a lamb..."
+        requirement = Requirements(req_title = title, req_desc = descr,
+                                   project_id=Project.query(Project.project_id ==31822394).get(use_cache=False).key)
+        requirement.put()
+        event = Events(user = User.query(User.user_id == "dukeayers").get(use_cache=False).key, project = Project.query(Project.project_id ==31822394).get(use_cache=False).key,  event_type = Event_LK.query(Event_LK.event_code == 3).get().key, description = title + " - " + descr, event_relation_key = None).put()
+
         print "Requirements Installed"
 
 
