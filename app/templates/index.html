@@ -11,28 +11,36 @@
     </div>
 
 </div>
-<div class="row">
-    <h4 class="text-center">ISSUES</h4>
-    <div class="col-xs-offset-3 col-xs-4">
+<!--<div class="row">-->
+<!--<div class="col-xs-4">-->
+<div class="panel panel-default col-xs-4 col-xs-offset-2" style="padding: 0 !important; min-height: 450px;">
+    <div class="panel-heading">
+        <h4 class="text-center">ISSUES</h4>
+    </div>
+    <!--<div class="col-xs-offset-3 col-xs-4">-->
         {% for issue in issues %}
-            <div>
-            {{ issue.title }} {{ issue.body }} Createdby:{{ issue.user.login }}
-            </div>
-            <br>
+            <ul class="list-group">
+                <li class="list-group-item">{{ issue.title }}</br>{{ issue.body }} </br> Createdby:{{ issue.user.login }}</li>
+            </ul>
         {% endfor %}
-    </div>
+    <!--</div>-->
+<!--<div class="row">-->
+<!--<div class="row">-->
 </div>
-<div class="row">
-    <h4 class="text-center">Commits</h4>
-    <div class="col-xs-offset-3 col-xs-4">
+<div class="panel panel-default col-xs-4 col-xs-offset-2" style="padding: 0 !important; min-height: 450px;">
+    <div class="panel-heading">
+        <h4 class="text-center">COMMITS</h4>
+    </div>
+    <!--<div class="col-xs-offset-3 col-xs-4">-->
         {% for commit in commits %}
-            <div>
-            {{ commit.get('commit').get('message') }}
-            </div>
-            <br>
+            <ul class="list-group">
+                <li class="list-group-item">{{ commit.get('commit').get('message') }}</li>
+            </ul>
         {% endfor %}
     </div>
 </div>
+<!--</div>-->
+<!--<div class="row">-->
 {%endblock%}
 {%block JS%}
 

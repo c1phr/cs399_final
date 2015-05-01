@@ -52,3 +52,8 @@ class RequirementsDashboard(BaseHandler):
             except:
                  self.response.status_int = 500
                  self.response.status_message = traceback.format_exception()
+
+
+class ProjectRequirements(BaseHandler):
+    def get(self, project_id):
+        template = env.get_template("project_requirements.html")

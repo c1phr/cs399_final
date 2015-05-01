@@ -40,7 +40,9 @@ class Fakextures():
             User(user_id="salbottig", first_name="Salvatore", last_name="Bottiglieri", email="sb797@nau.edu",
                  gravatar_url="https://avatars.githubusercontent.com/u/6665173?v=3"),
             User(user_id="cmh553", first_name="Christopher", last_name="Heiser", email="cmh553@nau.edu",
-                 gravatar_url="https://avatars.githubusercontent.com/u/8582482?v=3")
+                 gravatar_url="https://avatars.githubusercontent.com/u/8582482?v=3"),
+            User(user_id="interlochen", first_name="Ryan", last_name="Dooley", email="rcd53@nau.edu",
+                 gravatar_url="https://avatars.githubusercontent.com/u/3316388?v=3")
         ]
         ndb.put_multi(users)
 
