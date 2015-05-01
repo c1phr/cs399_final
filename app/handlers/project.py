@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from google.appengine.ext import ndb
 import webapp2, cgi
 import json
@@ -39,7 +40,8 @@ class ProjectDashboard(BaseHandler):
                 if author: # Only store commits for our team
                     new_commit = Commits(sha=commit['sha'], message=commit['commit']['message'], author=author.key, project=project_data.key)
                     commit_key = new_commit.put()
-                    commit_event = Events(project=project_data.key, user=author.key, event_type=Event_LK.query(Event_LK.event_code == 4).get().key, description=commit['commit']['message'], event_relation_key=commit_key)
+                    commit_time = datetime.strptime(commit['commit']['author']['date'], "%Y-%m-%dT%H:%M:%SZ")
+                    commit_event = Events(timestamp=commit_time,project=project_data.key, user=author.key, event_type=Event_LK.query(Event_LK.event_code == 4).get().key, description=commit['commit']['message'], event_relation_key=commit_key)
                     commit_event.put()
 
         # grab the languages of the project

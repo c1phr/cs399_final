@@ -46,7 +46,7 @@
                             <td>{{data.username}}</td>
                             <td>{{data.event}}</td>
                             <td>{{data.description}}</td>
-                            <td>{{data.timestamp}}</td>
+                            <td>{{data.timestamp.strftime('%d-%m-%Y %-I:%M%P')}}</td>
                         </tr>
                     {%endfor%}
                 </tbody>
