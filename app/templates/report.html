@@ -5,8 +5,29 @@
 {%endblock%}
 {%block content%}
 <div class="row" style="margin-top:20px;">
-    <div class="col-xs-4">
-        <button class="btn-primary btn" onclick="GenerateUserReport('{{ user.user_id }}'g)">Generate User Reports</button>
+    <div class="col-xs-10 col-xs-offset-1">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Type of Change</th>
+                        <th>Changes</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for data in report%}
+                        <tr>
+                            <td>{{data.username}}</td>
+                            <td>{{data.event}}</td>
+                            <td>{{data.description}}</td>
+                            <td>{{data.timestamp}}</td>
+                        </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
 
     </div>
 </div>

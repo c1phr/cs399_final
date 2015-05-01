@@ -47,6 +47,7 @@ app = webapp2.WSGIApplication([
     ('/report', report.Home),
     ('/report/user/(.*)', report.UserReport),
     ('/report/project/(.*)', report.ProjectReport),
+    ('/report/load/(.*)', report.GetLatestCommits),
     ('/', dashboard.MainHandler)
 ], debug=True, config=config)
 
