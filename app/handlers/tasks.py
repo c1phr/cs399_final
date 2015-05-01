@@ -20,11 +20,15 @@ class IndividualTask(BaseHandler):
             tasks = Task.query(Task.assignee == self.user().key).fetch()
         requirement_grab = []
         for task in tasks:
-            requirement_grab.append(task.requirement.get())
             if task.open == True:
                 task.mode = ""
             else:
                 task.mode = "hide"
+        user_project = Project_User.query(Project_User.user_id == self.user().key).fetch()
+        for userproj in user_project:
+            requirement = Requirements.query(Requirements.project_id == userproj.project_id).fetch()
+            for req in requirement:
+                requirement_grab.append(req)
         self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks, requirements=requirement_grab))
 
     def put(self, user_key):
