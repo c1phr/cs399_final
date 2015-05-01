@@ -34,7 +34,7 @@ class Home(BaseHandler):
                                 deadline=10)
         closed_issues_content = json.loads(result.content)
         self.response.write(template.render(name="Issues",open_issues = open_issues_content,closed_issues = closed_issues_content,
-                                            user=BaseHandler.user(self), project = project.project_id, owner = project_owner.user_id))
+                                            user=BaseHandler.user(self), project = project.project_id, project_name = project.project_title, owner = project_owner.user_id))
 
 
 
