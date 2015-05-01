@@ -8,22 +8,41 @@ td{
 {%block content%}
 <div class="row">
     <div class="col-xs-8 col-xs-offset-2 text-center">
-        <h2>{{project_data.project_title}}</h2>
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="border-radius:20px;">
-            README
-        </button>
-        <button type="button" class="btn btn-info btn-sm"  style="border-radius:20px;" onclick="window.open('https://github.com/{{owner}}/{{project_data.project_title}}/issues/','_blank' )">
+        <h2>{{project_data.project_title}}
+            <div class="btn-group" style="position: absolute; top: 8px;">
+              <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" >
+                 <span class="glyphicon glyphicon-cog" style="font-size:20px;"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/report/project/{{project_data.project_id}}">Project Report</a></li>
+                <li><a href="/issues/{{project_data.project_title}}">Issue Management</a></li>
+                <li><a href="/requirements/{{project_data.project_id}}">Requirements</a></li>
+                <li class="divider"></li>
+                <li><a data-toggle="modal" data-target="#myModal" href="#">README</a></li>
+              </ul>
+            </div>
+        </h2>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-8 col-xs-offset-2 text-center">
+
+        <!--<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="border-radius:20px;">-->
+            <!--README-->
+        <!--</button>-->
+        <button type="button" class="btn btn-info btn-sm"  style="border-radius:20px;" onclick="window.open('https://github.com/{{owner}}/{{project_data.project_title}}/issues/','_blank')">
             {{open_issue}} Open Issues
         </button>
          <button type="button" class="btn btn-success btn-sm"  style="border-radius:20px;" onclick="$('.Commits').is(':hidden') ? $('.Commits').show() :$('.Commits').hide() ">
             Recent Commits
         </button>
-        <a type="button" class="btn btn-danger btn-sm"  style="border-radius:20px;" href="/issues/{{project_data.project_title}}" >
-            Issue Management
-        </a>
-       <a type="button" class="btn btn-warning btn-sm"  style="border-radius:20px;" href="/requirements/{{project_data.project_id}}" >
-            Requirements
-        </a>
+        <!--<a type="button" class="btn btn-danger btn-sm"  style="border-radius:20px;" href="/issues/{{project_data.project_title}}" >-->
+            <!--Issue Management-->
+        <!--</a>-->
+       <!--<a type="button" class="btn btn-warning btn-sm"  style="border-radius:20px;" href="/requirements/{{project_data.project_id}}" >-->
+            <!--Requirements-->
+        <!--</a>-->
         <hr/>
         <h4>Language Statistics</h4>
         <div class="progress" style="margin-bottom:0;">
