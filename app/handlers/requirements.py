@@ -16,7 +16,8 @@ class RequirementsDashboard(BaseHandler):
         template = env.get_template("requirements.html")
         project = Project.query(Project.project_id == int(project_id)).get()
         requirements = Requirements.query(Requirements.project_id == project.key, Requirements.active == True).fetch()
-        self.response.write(template.render(name = "Requirements",user = BaseHandler.user(self), requirements = requirements, project_id = project_id))
+        self.response.write(template.render(name="Requirements", user=BaseHandler.user(self), requirements=requirements,
+                                            project_id=project_id))
 
     def put(self, project_id):
         project = Project.query(Project.project_id == int(project_id)).get()
@@ -41,14 +42,18 @@ class RequirementsDashboard(BaseHandler):
         else:
             if parent != "None":
                 requirement_id = ndb.Key(urlsafe=cgi.escape(self.request.get("parent")))
-                requirement = Requirements(project_id=project.key, req_title=title, req_desc=description, parent_id = requirement_id)
+                requirement = Requirements(project_id=project.key, req_title=title, req_desc=description,
+                                           parent_id=requirement_id)
             else:
-                requirement = Requirements(project_id=project.key, req_title=title, req_desc=description, parent_id = None)
+                requirement = Requirements(project_id=project.key, req_title=title, req_desc=description,
+                                           parent_id=None)
             try:
                 requirement.put()
                 self.response.status_int = 200
                 self.response.status_message = "Requirement Saved Successfully"
-                event = Events(user = BaseHandler.user(self).key, project = project.key, event_type = Event_LK.query(Event_LK.event_code == 3).get().key, description = title + " " + description, event_relation_key = None).put()
+                event = Events(user=BaseHandler.user(self).key, project=project.key,
+                               event_type=Event_LK.query(Event_LK.event_code == 3).get().key,
+                               description=title + " " + description, event_relation_key=None).put()
             except:
-                 self.response.status_int = 500
-                 self.response.status_message = traceback.format_exception()
+                self.response.status_int = 500
+                self.response.status_message = traceback.format_exception()

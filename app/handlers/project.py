@@ -3,7 +3,7 @@ import webapp2, cgi
 import json
 from google.appengine.api import urlfetch
 from app.handlers.BaseHandler import BaseHandler
-from app.models.models import User, Project, Project_User,Requirements, Events, Event_LK
+from app.models.models import User, Project, Project_User, Requirements, Events, Event_LK
 from jinja2 import Environment, PackageLoader
 
 env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.ext.loopcontrols'])
@@ -28,7 +28,7 @@ class ProjectDashboard(BaseHandler):
         commit_contents = json.loads(result.content)
 
         # grab the languages of the project
-        language_url = "https://api.github.com/repos/" + project_owner.user_id  + "/" + project_data.project_title + "/languages?access_token=" + self.session.get(
+        language_url = "https://api.github.com/repos/" + project_owner.user_id + "/" + project_data.project_title + "/languages?access_token=" + self.session.get(
             "access_token")
         result = urlfetch.fetch(url=language_url,
                                 method=urlfetch.GET,
@@ -40,7 +40,7 @@ class ProjectDashboard(BaseHandler):
             total += language_contents[language]
 
         # grab the readme file
-        readme_url = "https://api.github.com/repos/" +  project_owner.user_id  + "/" + project_data.project_title + "/readme?access_token=" + self.session.get(
+        readme_url = "https://api.github.com/repos/" + project_owner.user_id + "/" + project_data.project_title + "/readme?access_token=" + self.session.get(
             "access_token")
         result = urlfetch.fetch(url=readme_url,
                                 method=urlfetch.GET,
@@ -50,7 +50,7 @@ class ProjectDashboard(BaseHandler):
 
 
         # grab the open current issues on Github
-        open_issues_url = "https://api.github.com/repos/" + project_owner.user_id  + "/" + project_data.project_title + "/issues?access_token=" + self.session.get(
+        open_issues_url = "https://api.github.com/repos/" + project_owner.user_id + "/" + project_data.project_title + "/issues?access_token=" + self.session.get(
             "access_token") + "&state=open"
         result = urlfetch.fetch(url=open_issues_url,
                                 method=urlfetch.GET,
@@ -72,7 +72,8 @@ class ProjectDashboard(BaseHandler):
         self.response.write(template.render(name="Projects", project_data=project_data,
                                             user=BaseHandler.user(self),
                                             commits=commit_contents, languages=language_contents, total=total,
-                                            readme=readme_contents, open_issue=open_issue, team=team_members, owner = project_owner.user_id))
+                                            readme=readme_contents, open_issue=open_issue, team=team_members,
+                                            owner=project_owner.user_id))
 
 
 class ManageTeam(BaseHandler):
@@ -95,10 +96,10 @@ class ManageTeam(BaseHandler):
             event_message = username + " was added to " + project.project_title + " by " + self.user().user_id
 
         event = Events(project=project.key,
-                           user=self.user().key,
-                           event_type=Event_LK.query(Event_LK.event_code == 5).get().key,
-                           description=event_message,
-                           event_relation_key=None)
+                       user=self.user().key,
+                       event_type=Event_LK.query(Event_LK.event_code == 5).get().key,
+                       description=event_message,
+                       event_relation_key=None)
         event.put()
 
 
