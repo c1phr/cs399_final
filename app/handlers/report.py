@@ -4,7 +4,7 @@ import base64,urllib
 import json, collections
 from google.appengine.api import urlfetch
 from app.handlers.BaseHandler import BaseHandler
-from app.models.models import User, Project, Events, Event_LK, Commits
+from app.models.models import User, Project, Events, Event_LK, Commits, Project_User
 from google.appengine.ext import ndb
 from jinja2 import Environment, PackageLoader
 
@@ -23,7 +23,8 @@ class UserReport(BaseHandler):
         for data in return_events:
             data.event = Event_LK.query(Event_LK.key == data.event_type).get().event_type
             data.username = User.query(User.key == data.user).get().user_id
-        self.response.write(template.render(name="Individual Reporting", user=BaseHandler.user(self), report = return_events))
+
+        self.response.write(template.render(name="Individual Reporting", user=BaseHandler.user(self), report = return_events, current_template="UserReport"))
 
 class ProjectReport(BaseHandler):
     def get(self, project):
@@ -33,7 +34,16 @@ class ProjectReport(BaseHandler):
         for data in return_events:
             data.event = Event_LK.query(Event_LK.key == data.event_type).get().event_type
             data.username = User.query(User.key == data.user).get().user_id
-        self.response.write(template.render(name="Group Reporting", user=BaseHandler.user(self), report=return_events))
+
+        team = Project_User.query(Project_User.project_id == project_id.key).fetch()
+        user = BaseHandler.user_id(self)
+        team_members = []
+        for member in team:
+            if member.user_id != user:
+                team_member = User.query(User.key == member.user_id).get()
+                team_members.append(team_member)
+
+        self.response.write(template.render(name="Group Reporting", user=BaseHandler.user(self), report=return_events, current_template = "ProjectReport", team = team_members))
 
 class GetLatestCommits(BaseHandler):
     def get(self, id):

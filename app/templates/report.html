@@ -4,10 +4,34 @@
 
 {%endblock%}
 {%block content%}
+
+{%if current_template != "UserReport"%}
+    <div class="row" style="margin-top:20px;">
+        <div class="col-xs-6 col-xs-offset-3 text-center">
+            <h3>Project Report</h3>
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-4">
+            <input class="form-control" type="text" placeholder="Search..." onkeydown="search_all(this);"/>
+        </div>
+    </div>
+{%endif%}
 <div class="row" style="margin-top:20px;">
     <div class="col-xs-10 col-xs-offset-1">
         <div class="table-responsive">
             <table class="table">
+            {%if current_template != "UserReport"%}
+                <caption>
+                    <select style="width:25%;" class="form-control" name="member_names" id="members" onchange="filter_members(this);">
+                        <option value="" selected>Filter Member</option>
+                        {%for member in team%}
+                        <option value="{{member.user_id}}">{{member.user_id}}</option>
+                        {%endfor%}
+                    </select>
+                </caption>
+            {%endif%}
                 <thead>
                     <tr>
                         <th>Username</th>
@@ -18,7 +42,7 @@
                 </thead>
                 <tbody>
                     {%for data in report%}
-                        <tr>
+                        <tr data-filter-user="{{data.username}}" data-filter-all="{{data.username}} {{data.event}} {{data.description}} {{data.timestamp}}">
                             <td>{{data.username}}</td>
                             <td>{{data.event}}</td>
                             <td>{{data.description}}</td>
