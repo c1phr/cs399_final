@@ -1,9 +1,11 @@
     function editMode(element) {
         $this = $(element);
-        $this.parent().children('.non-edit').toggle();
-        $this.parent().children('.edit-requirement').toggle();
-        $this.siblings('input.edit-requirement').val($this.siblings('h3').text());
-        $this.siblings('textarea.edit-requirement').val($this.siblings('h4').text())
+        $this.toggle();
+        $this.siblings('.edit-requirement').toggle();
+        $this.siblings(".panel-body").children('.non-edit').toggle();
+        $this.siblings(".panel-body").children('.edit-requirement').toggle();
+        $this.siblings('.panel-body').children('input.edit-requirement').val($this.siblings('.panel-heading').children('h3').text());
+        $this.siblings('.panel-body').children('textarea.edit-requirement').val($this.siblings('.panel-body').children('p').text());
     }
 
     function updateRequirement(element) {
@@ -21,9 +23,15 @@
             }
         })
             .success(function (msg) {
-            $this.siblings('h3').text($this.siblings('input.edit-requirement').val());
-            $this.siblings('h4').text($this.siblings('textarea.edit-requirement').text());
-            editMode($this);
+            $this.siblings('.panel-body').children('input.edit-requirement').val($this.siblings('.panel-heading').children('h3').text());
+            $this.siblings('.non-edit').toggle();
+            $this.siblings('.edit-requirement').toggle();
+            $this.parent().siblings('.panel-heading').children('h3').text($this.siblings('input.edit-requirement').val());
+            $this.siblings('p').text($this.siblings('textarea.edit-requirement').val());
+            $this.parent().siblings('.non-edit').toggle();
+            $this.parent().siblings('.edit-requirement').toggle();
+
+                $this.toggle();
         })
 
     }
