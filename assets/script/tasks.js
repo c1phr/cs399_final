@@ -84,10 +84,10 @@ function addMyTask(element){
         method: "PUT",
         url: "/mytasks/",
         data: {
-            requirement: $this.attr('data-requirement'),
+            requirement: $('#RequirementNew').val(),
             title: $('#addTaskTitle').val(),
             description: $('#addTaskDesc').val(),
-            assignee: $('#assigneeNew').val(),
+            assignee: $this.attr('data-user'),
             open: "Open"
         }
     })
@@ -95,7 +95,7 @@ function addMyTask(element){
             $('#taskModal').modal('hide');
              $('#addTaskTitle').val("");
             $('#addTaskDesc').val("");
-            $('#assigneeNew').val("");
+            $('#RequirementNew').val("");
         })
 }
 

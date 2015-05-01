@@ -24,8 +24,11 @@ class IndividualTask(BaseHandler):
         self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks, requirements=requirement_grab))
 
     def put(self, user_key):
+        requirement = cgi.escape(self.request.get("requirement"))
         description = cgi.escape(self.request.get("description"))
         title = cgi.escape(self.request.get("title"))
+        print(cgi.escape(self.request.get("assignee")))
+        assignee = ndb.Key(urlsafe=cgi.escape(self.request.get("assignee"))).get()
         task_status = cgi.escape(self.request.get("open"))
 
         if self.request.get("task_key"):  # Update
@@ -33,8 +36,19 @@ class IndividualTask(BaseHandler):
         else:  # Create
             task = Task()
 
+        task.assignee = assignee.key
         task.task_title = title
         task.task_desc = description
+
+        if requirement:
+            task.requirement = ndb.Key(urlsafe=requirement)
+        else:
+            task.requirement = None
+
+        if task_status == "False":
+            task.open = False
+        else:
+            task.open = True
 
         try:
             task.put()
@@ -68,7 +82,7 @@ class TaskDashboard(BaseHandler):
             user.username = User.query(User.key == user.user_id).get().user_id
         self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks, project_data = project, users = users, requirement = new_req))
 
-    def put(self):
+    def put(self, requirement):
         requirement = cgi.escape(self.request.get("requirement"))
         description = cgi.escape(self.request.get("description"))
         title = cgi.escape(self.request.get("title"))
