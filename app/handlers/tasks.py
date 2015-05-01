@@ -21,6 +21,10 @@ class IndividualTask(BaseHandler):
         requirement_grab = []
         for task in tasks:
             requirement_grab.append(task.requirement.get())
+            if task.open == True:
+                task.mode = ""
+            else:
+                task.mode = "hide"
         self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks, requirements=requirement_grab))
 
     def put(self, user_key):
@@ -30,6 +34,7 @@ class IndividualTask(BaseHandler):
         print(cgi.escape(self.request.get("assignee")))
         assignee = ndb.Key(urlsafe=cgi.escape(self.request.get("assignee"))).get()
         task_status = cgi.escape(self.request.get("open"))
+        print(task_status)
 
         if self.request.get("task_key"):  # Update
             task = ndb.Key(urlsafe=cgi.escape(self.request.get("task_key"))).get()
