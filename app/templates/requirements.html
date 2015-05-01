@@ -17,15 +17,17 @@
 
     {%for requirement in requirements%}
         <div class="panel panel-default col-xs-5" style="padding: 0 !important; min-height: 450px; margin-left: 50px; margin-right: 25px;">
-            <span class="glyphicon-pencil glyphicon non-edit"  onclick="editMode(this)" style="position:absolute; top: 30px; right: 15px; cursor:pointer;"></span>
-            <span class="glyphicon-trash glyphicon edit-requirement" data-id="{{requirement.key.urlsafe()}}" data-url-target="{{project_id}}" onclick="removeRequirement(this)" style="position:absolute; top: 0; right: -10px; cursor:pointer; display:none;"></span>
-            <span class="glyphicon-duplicate glyphicon non-edit" onclick= "window.location.href = '/tasks/{{requirement.key.urlsafe()}}'; "style="position:absolute; top: 30px; right: 35px; cursor:pointer"></span>
+            <span class="glyphicon-pencil glyphicon non-edit"  onclick="editMode(this)" style="position:absolute; top: 10px; right: 15px; cursor:pointer;"></span>
+            <span class="glyphicon-trash glyphicon edit-requirement" data-id="{{requirement.key.urlsafe()}}" data-url-target="{{project_id}}" onclick="removeRequirement(this)" style="position:absolute; top: 10px; right: 15px; cursor:pointer; display:none;"></span>
+            <span class="glyphicon-duplicate glyphicon non-edit" onclick= "window.location.href = '/tasks/{{requirement.key.urlsafe()}}'; "style="position:absolute; top: 10px; right: 35px; cursor:pointer"></span>
+
+            <div class="panel-heading"><h3 class="non-edit title">{{requirement.req_title}}</h3></div>
+            <div class="panel-body">
+            <p align="left" class="non-edit">{{requirement.req_desc}}</p>
             <input  type="text" name="title" class="form-control edit-requirement" style="display:none;" value="{{requirement.req_title}}"/>
             <textarea oninput='changeText(this)'  name="description" class="form-control edit-requirement" cols="30" rows="10" style="margin-top:10px;display:none;" value="{{requirement.req_desc}}">{{requirement.req_desc}}</textarea>
             <button type="button" class="btn-primary btn edit-requirement" data-parent="{{requirement.parent_id}}" data-url-target="{{project_id}}" data-id="{{requirement.key.urlsafe()}}"  onclick="updateRequirement(this)" style="margin-top:10px;display:none;">Update</button>
-            <button type="button" class="btn-default btn edit-requirement" onclick="editMode(this)" style="margin-top:10px;display:none;">Cancel</button>
-            <div class="panel-heading"><h3 class="non-edit title">{{requirement.req_title}}</h3></div>
-            <div class="panel-body"><p align="left">{{requirement.req_desc}}</p></div>
+            </div>
             <!--<a class="btn btn-link" style="margin-left: 90px;" href="/tasks/{{requirement.key.urlsafe()}}">Associated Tasks</a>-->
         </div>
     {%endfor%}
