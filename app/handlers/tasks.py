@@ -18,10 +18,12 @@ class IndividualTask(BaseHandler):
             tasks = Task.query(Task.assignee == user_key or self.user().key).fetch()
         except datastore_errors.BadValueError:
             tasks = Task.query(Task.assignee == self.user().key).fetch()
-        self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks))
+        requirement_grab = []
+        for task in tasks:
+            requirement_grab.append(task.requirement.get())
+        self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks, requirements=requirement_grab))
 
-    def put(self):
-        requirement = cgi.escape(self.request.get("requirement"))
+    def put(self, user_key):
         description = cgi.escape(self.request.get("description"))
         title = cgi.escape(self.request.get("title"))
         task_status = cgi.escape(self.request.get("open"))
@@ -33,8 +35,6 @@ class IndividualTask(BaseHandler):
 
         task.task_title = title
         task.task_desc = description
-        task.requirement = requirement or None
-        task.open = task_status or True
 
         try:
             task.put()
@@ -68,7 +68,7 @@ class TaskDashboard(BaseHandler):
             user.username = User.query(User.key == user.user_id).get().user_id
         self.response.write(template.render(name="Tasks", user=BaseHandler.user(self), tasks=tasks, project_data = project, users = users, requirement = new_req))
 
-    def put(self, req):
+    def put(self):
         requirement = cgi.escape(self.request.get("requirement"))
         description = cgi.escape(self.request.get("description"))
         title = cgi.escape(self.request.get("title"))
