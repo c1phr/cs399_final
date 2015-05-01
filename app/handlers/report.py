@@ -22,6 +22,7 @@ class UserReport(BaseHandler):
         return_events =  Events.query(Events.user == user_id.key).fetch()
         for data in return_events:
             data.event = Event_LK.query(Event_LK.key == data.event_type).get().event_type
+            data.username = User.query(User.key == data.user).get().user_id
         self.response.write(template.render(name="Individual Reporting", user=BaseHandler.user(self), report = return_events))
 
 class ProjectReport(BaseHandler):
@@ -29,7 +30,10 @@ class ProjectReport(BaseHandler):
         template = env.get_template("report.html")
         project_id = Project.query(Project.project_id== int(project)).get()
         return_events = Events.query(Events.project == project_id.key).fetch()
-        self.response.write(template.render(name="Group Reporting", user=BaseHandler.user(self), events=return_events))
+        for data in return_events:
+            data.event = Event_LK.query(Event_LK.key == data.event_type).get().event_type
+            data.username = User.query(User.key == data.user).get().user_id
+        self.response.write(template.render(name="Group Reporting", user=BaseHandler.user(self), report=return_events))
 
 class GetLatestCommits(BaseHandler):
     def get(self, id):

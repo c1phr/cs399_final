@@ -10,6 +10,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Username</th>
                         <th>Type of Change</th>
                         <th>Changes</th>
                         <th>Time</th>
@@ -18,6 +19,7 @@
                 <tbody>
                     {%for data in report%}
                         <tr>
+                            <td>{{data.username}}</td>
                             <td>{{data.event}}</td>
                             <td>{{data.description}}</td>
                             <td>{{data.timestamp}}</td>
