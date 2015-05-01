@@ -37,7 +37,6 @@ app = webapp2.WSGIApplication([
     ('/project', dashboard.ProjectDashboard),
     ('/project/(.*)', project.ProjectDashboard),
     ('/requirements/(\d+)', requirements.RequirementsDashboard),
-    ('/projectRequirements', requirements.ProjectRequirements),
     ('/ManageTeam', project.ManageTeam),
     ('/register', dashboard.Register),
     ('/splash', dashboard.Splash),
