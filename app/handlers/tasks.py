@@ -35,10 +35,8 @@ class IndividualTask(BaseHandler):
         requirement = cgi.escape(self.request.get("requirement"))
         description = cgi.escape(self.request.get("description"))
         title = cgi.escape(self.request.get("title"))
-        print(cgi.escape(self.request.get("assignee")))
         assignee = ndb.Key(urlsafe=cgi.escape(self.request.get("assignee"))).get()
         task_status = cgi.escape(self.request.get("open"))
-        print(task_status)
 
         if self.request.get("task_key"):  # Update
             task = ndb.Key(urlsafe=cgi.escape(self.request.get("task_key"))).get()
