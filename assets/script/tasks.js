@@ -61,10 +61,9 @@ function updateMyTask(element){
         method: "PUT",
         url: "/mytasks/",
         data: {
-            requirement: $this.attr('data-requirement'),
+            requirement: $("#requirementUpdate :selected").val(),
             title: $this.siblings('input').val(),
             description: $this.siblings('textarea').text(),
-            assignee: $this.siblings('#assigneeUpdate').val(),
             open: $this.siblings('#statusUpdate').val(),
             task_key: $this.attr('data-task-key')
         }
@@ -110,4 +109,8 @@ $('#TaskToggle').click(function(){
     $('.tasks').toggleClass('hide');
 
 
+})
+
+$(function(){
+    $('#')
 })
