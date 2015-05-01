@@ -28,13 +28,7 @@ td{
         <h4>Language Statistics</h4>
         <div class="progress" style="margin-bottom:0;">
             {%for language in languages%}
-                {%if loop.index % 2 == 0%}
-                    <div class="progress-bar progress-bar-success" data-toggle="tooltip" data-placement="bottom" title="{{language}} {{(languages[language] / total) * 100}}%" style="width:{{(languages[language] / total) * 100}}%"></div>
-                {%else%}
-                    <div class="progress-bar progress-bar-warning" data-toggle="tooltip" data-placement="bottom" title="{{language}} {{(languages[language] / total) * 100}}%" style="width:{{(languages[language] / total) * 100}}%"></div>
-
-                {%endif%}
-
+                    <div class="progress-bar language-bar" data-toggle="tooltip" data-placement="bottom" data-language="{{language}}" data-percent="{{(languages[language] / total) * 100}}" style="width:{{(languages[language] / total) * 100}}%"></div>
             {%endfor%}
         </div>
         <h6 style="font-weight:bold;">{{total}} total lines of code</h6>

@@ -1,51 +1,12 @@
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Git Managed</title>
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-</head>
-<style>
-    body {
-        background-color:#337BB8;
-    }
-</style>
+{% extends "base.html" %}
+{%block title%}Git Managed{%endblock%}
+{%block styles%}
 
-<body>
-    <!--login modal-->
-    <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h1 class="text-center">Git Managed</h1>
-                  </div>
-                  <div class="modal-body">
-                      <form class="form center-block">
-                          <p>We are making a project that does something cool and you should come back and try it soon.
-                          Use the sign in button to authorize GitHub access and you'll be able to see projects and stuff. k thx. Bye.</p>
-{#                        <div class="form-group">#}
-{#                          <input type="text" class="form-control input-lg" placeholder="Email">#}
-{#                        </div>#}
-{#                        <div class="form-group">#}
-{#                          <input type="password" class="form-control input-lg" placeholder="Password">#}
-{#                        </div>#}
-                        <div class="form-group">
-                          <button class="btn btn-primary btn-lg btn-block" style="background-color:white; color:black;"><a href="/login">Sign In</a></button>
-                        </div>
-
-                      </form>
-                  </div>
-              </div>
-          </div>
-    </div>
-
-<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $.get('/login');
-    })
-</script>
-
-</body>
-</html>
+{%endblock%}
+{% block content %}
+<h1>Git Managed</h1>
+<p>This is the home of Git Managed, a new type of project management system that integrates with the version control system that you and your team is already using.</p>
+<p>Click <a href="/login">Sign In</a> to log in with your GitHub credentials and start tracking your team's productivity.</p>
+{% endblock %}
+{% block JS %}
+{% endblock %}

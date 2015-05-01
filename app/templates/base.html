@@ -39,12 +39,13 @@
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
       </button>
-        <a class="navbar-brand" href="#" style="color:white;">Git Managed</a>
+        <a class="navbar-brand" href="/" style="color:white;">Git Managed</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
+          {% if user %}
         <li><img src="{{user.gravatar_url}}" width='40px' height='40px' style="margin-top:5px; margin-bottom:5px;" class="img-circle" alt=""/></li>
         <li class="dropdown">
           <a href="#" style="color:white;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user.first_name}}<span class="caret"></span></a>
@@ -53,7 +54,9 @@
             <li><a href="#">Info</a></li>
           </ul>
         </li>
+          {% else %}
         <li><a href="/login" style="color:white;">Sign In</a></li>
+          {% endif %}
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -62,6 +65,7 @@
 
 <aside id="sidebar" style="z-index:9999;">
    <div class="sidebar-left">
+       {% if user %}
    <h6 style="color:#777; margin-left: 0.5em;">MENU</h6>
        <ul class="nav nav-pills nav-stacked">
 
@@ -151,6 +155,7 @@
        </ul>
    </ul>
    </div>
+    {% endif %}
 </aside>
 <div class="row" style="background:#f8f8f8; color:#777; margin-left: 0; margin-right: 0; border: 1px solid #e7e7e7; margin-top:50px;">
     <div  id="breadcrumbs">
