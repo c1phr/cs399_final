@@ -1,20 +1,27 @@
 import os
+from google.appengine.ext import ndb
 import webapp2, cgi
 import json
 from google.appengine.api import urlfetch
 from app.handlers.BaseHandler import BaseHandler
-from app.models.models import User, Project, Project_User, Requirements, Events, Event_LK
+from app.models.models import User, Project, Project_User, Requirements, Events, Event_LK, Commits
 from jinja2 import Environment, PackageLoader
 
 env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.ext.loopcontrols'])
 
 
+class Events_LK(object):
+    pass
+
+
 class ProjectDashboard(BaseHandler):
     def get(self, id):
+        user_id = BaseHandler.user_id(self)
+        if not self.session.get("user"):
+            self.redirect("/")
         project_data = Project.query(Project.project_id == int(id)).get()
         template = env.get_template("project_dashboard.html")
         project_owner = User.query(User.key == project_data.project_owner).get()
-        user_id = BaseHandler.user_id(self)
         if self.session.get("user") is None:
             self.redirect("/login")
         username = User.query(User.key == self.session.get("user"))
@@ -26,6 +33,14 @@ class ProjectDashboard(BaseHandler):
                                 headers={"Accept": "application/json"},
                                 deadline=10)
         commit_contents = json.loads(result.content)
+        for commit in commit_contents:
+            if not Commits.query(Commits.sha == commit['sha']).fetch(1):
+                author = User.query(User.user_id == commit['committer']['login']).get()
+                if author: # Only store commits for our team
+                    new_commit = Commits(sha=commit['sha'], message=commit['commit']['message'], author=author.key, project=project_data.key)
+                    commit_key = new_commit.put()
+                    commit_event = Events(project=project_data.key, user=author.key, event_type=Event_LK.query(Event_LK.event_code == 4).get().key, description=commit['commit']['message'], event_relation_key=commit_key)
+                    commit_event.put()
 
         # grab the languages of the project
         language_url = "https://api.github.com/repos/" + project_owner.user_id + "/" + project_data.project_title + "/languages?access_token=" + self.session.get(

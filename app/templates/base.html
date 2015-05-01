@@ -39,6 +39,7 @@
 
        <!-- SIDEBAR NAVIGATION -->
       <nav id="menu">
+          {% if user %}
         <ul>
             <li><a href="/"><span class="glyphicon glyphicon-flash"></span>  Home</a></li>
           <li><a href="/mytasks/"><span class="glyphicon glyphicon-flash"></span>  My Tasks</a></li>
@@ -65,6 +66,7 @@
           </li>
 
         </ul>
+          {% endif %}
       </nav>
 
 
