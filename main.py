@@ -44,6 +44,7 @@ app = webapp2.WSGIApplication([
     ('/CloseIssue', issue.CloseIssue),
     ('/tasks/(.*)', tasks.TaskDashboard),
     ('/mytasks/(.*)', tasks.IndividualTask),
+    ('/report', report.Home),
     ('/report/user/(.*)', report.UserReport),
     ('/report/project/(.*)', report.ProjectReport),
     ('/', dashboard.MainHandler)

@@ -10,13 +10,17 @@ from jinja2 import Environment, PackageLoader
 
 env = Environment(loader=PackageLoader('app', 'templates'), extensions=['jinja2.ext.loopcontrols'])
 
+class Home(BaseHandler):
+    def get(self):
+        template = env.get_template("report.html")
+        self.response.write(template.render(name="Overall Reporting", user=BaseHandler.user(self)))
 
 class UserReport(BaseHandler):
     def get(self, user):
         template = env.get_template("report.html")
         user_id = User.query(User.user_id==user).get()
-        return_events = Events.query(Events.user == user_id.key).fetch()
-        self.response.write(template.render(name="Issues", user=BaseHandler.user(self), events=return_events))
+        return_events = json.dumps([p.to_dict() for p in Events.query(Events.user == user_id.key).fetch()])
+        self.response.out.write(return_events)
 
 class ProjectReport(BaseHandler):
     def get(self, project):

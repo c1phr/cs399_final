@@ -1,12 +1,20 @@
 {% extends "base.html" %}
-{%block title%}Git Managed{%endblock%}
+{%block title%}Testing Title{%endblock%}
 {%block styles%}
 
+body{
+  background: url("/css/welcome.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 {%endblock%}
-{% block content %}
-<h1>Git Managed</h1>
-<p>This is the home of Git Managed, a new type of project management system that integrates with the version control system that you and your team is already using.</p>
-<p>Click <a href="/login">Sign In</a> to log in with your GitHub credentials and start tracking your team's productivity.</p>
-{% endblock %}
-{% block JS %}
-{% endblock %}
+{%block content%}
+    <body>
+    </body>
+{%endblock%}
+{%block JS%}
+
+{%endblock%}

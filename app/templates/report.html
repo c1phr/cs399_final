@@ -4,9 +4,9 @@
 
 {%endblock%}
 {%block content%}
-<div class="row">
+<div class="row" style="margin-top:20px;">
     <div class="col-xs-4">
-        {{events}}
+        <button class="btn-primary btn" onclick="GenerateUserReport('{{ user.user_id }}'g)">Generate User Reports</button>
 
     </div>
 </div>
